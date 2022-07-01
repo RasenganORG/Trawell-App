@@ -1,38 +1,74 @@
-.App {
+.layout {
+  margin: 0;
+  align-self: auto;
+}
+
+.site-layout-content {
+  min-height: 280px;
+
+  background: transparent;
+  align-items: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.logo {
+  width: 120px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gutter-box {
+  padding: 8px 0;
+  background: #00a0e9;
+}
+
+.gutter-row {
+  width: 100px;
+  align-self: auto;
+}
+
+.site-calendar-demo-card {
+  width: 300px;
+  border: 1px solid #f0f0f0;
+}
+
+.checkin {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.guests {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.user-icon {
+  color: #a0a0a0;
+  margin-left: 10px;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.connect-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.form-login {
+  width: 500px;
+}
+.form-register {
+  width: 700px;
 }

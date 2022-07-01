@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Navbar from "./components/Navbar";
+import Cards from "./components/Cards";
+import Bottom from "./components/Bottom";
+import Login from "./components/Login";
+import "antd/dist/antd.css";
+import "./app.css";
+import Register from "./components/Register";
+
+const App = () => (
+  <div className="layout">
+    {/* <Navbar />
+    <Cards />
+    <Bottom /> */}
+    {/* <Login /> */}
+    <Register />
+  </div>
+);
 
 export default App;
