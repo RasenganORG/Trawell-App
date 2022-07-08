@@ -1,14 +1,21 @@
-.layout {
-  margin: 0;
-  align-self: auto;
+* {
+  box-sizing: border-box;
 }
 
-.site-layout-content {
-  min-height: 280px;
+/* .layout {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+} */
 
-  background: transparent;
-  align-items: center;
-  text-align: center;
+.site-layout-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  /* width: 70%; */
+
+  margin-top: 40px;
 }
 
 .header {
@@ -20,16 +27,6 @@
 
 .logo {
   width: 120px;
-}
-
-.gutter-box {
-  padding: 8px 0;
-  background: #00a0e9;
-}
-
-.gutter-row {
-  width: 100px;
-  align-self: auto;
 }
 
 .site-calendar-demo-card {
@@ -67,8 +64,75 @@
 }
 
 .form-login {
+  padding-top: 5%;
+  padding-right: 120px;
+  margin: auto;
   width: 500px;
 }
 .form-register {
-  width: 700px;
+  padding-top: 5%;
+  padding-right: 120px;
+  margin: auto;
+  width: 900px;
+}
+
+.button-host {
+  border-radius: 15px;
+}
+
+.input-group {
+  width: 300px;
+  display: flex;
+  flex: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-counter {
+  width: 35px;
+  text-align: center;
+  color: #00a0e9;
+}
+
+.star-icon {
+  float: right;
+}
+
+.favorites {
+  color: rgb(211, 211, 211);
+  float: right;
+}
+/* 
+.badge {
+  float: left;
+} */
+
+/* .img-carousel {
+  width: 600px;
+  height: 300px;
+} */
+
+.steps-content {
+  min-height: 200px;
+  margin-top: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps-action {
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+/* 
+.button-hover:hover {
+  border: rgb(255, 0, 200);
+  border-color: green;
+} */
+
+.filtered-layout-content {
+  width: 45%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
