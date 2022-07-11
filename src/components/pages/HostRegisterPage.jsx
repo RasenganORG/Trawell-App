@@ -1,5 +1,6 @@
 import { Button, message, Steps } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import HouseType from "../page-register-host/HouseType";
 import PropertyType from "../page-register-host/PropertyType";
 import EntirePlace from "../page-register-host/EntirePlace";
@@ -61,9 +62,10 @@ const HostRegisterPage = () => {
       <Navbar />
       <div
         style={{
-          width: "900px",
-          margin: "auto",
-          marginTop: "40px",
+          width: "60%",
+          marginLeft: "20%",
+          marginTop: "5%",
+          marginBottom: "5%",
           backgroundColor: "transparent",
         }}
       >
@@ -74,6 +76,34 @@ const HostRegisterPage = () => {
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action">
+          {current > 0 && (
+            <Button
+              type="secondary"
+              style={{
+                color: "grey",
+                margin: "0 8px",
+                marginBottom: "20px",
+              }}
+              onClick={() => prev()}
+            >
+              Previous
+            </Button>
+          )}
+          {current === steps.length - 1 && (
+            <Link to="/home">
+              <Button
+                style={{
+                  backgroundColor: "#c7027c",
+                  border: "none",
+                  borderRadius: "6px",
+                }}
+                type="primary"
+                onClick={() => message.success("Processing complete!")}
+              >
+                Finish
+              </Button>
+            </Link>
+          )}
           {current < steps.length - 1 && (
             <Button
               style={{
@@ -86,31 +116,6 @@ const HostRegisterPage = () => {
               onClick={() => next()}
             >
               Next
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button
-              style={{
-                backgroundColor: "#c7027c",
-                border: "none",
-                borderRadius: "6px",
-              }}
-              type="primary"
-              onClick={() => message.success("Processing complete!")}
-            >
-              Finish
-            </Button>
-          )}
-          {current > 0 && (
-            <Button
-              type="secondary"
-              style={{
-                color: "grey",
-                margin: "0 8px",
-              }}
-              onClick={() => prev()}
-            >
-              Previous
             </Button>
           )}
         </div>

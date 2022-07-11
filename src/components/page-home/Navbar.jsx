@@ -10,6 +10,7 @@ import CheckIn from "./CheckIn";
 import Search from "./Search";
 import WhoTravels from "./WhoTravels";
 import UserAcc from "./UserAcc";
+import CascaderButton from "./CascaderButton";
 
 const { Header } = Layout;
 
@@ -26,7 +27,7 @@ const Navbar = () => (
     <Link to="/home">
       <img className="logo" src={Logo} />
     </Link>
-    <div className="middle-buttons">
+    <div>
       <Dropdown overlay={CheckIn} placement="bottom" arrow>
         <Button className="checkin">Checkin</Button>
       </Dropdown>
@@ -35,21 +36,21 @@ const Navbar = () => (
       </Dropdown>
       <Search />
       <WhoTravels />
-      <Tooltip title="Find your place">
-        <Link to="/search-result">
+      <Link to="/search-result">
+        <Tooltip title="Find your place">
           <Button
             type="primary"
             shape="circle"
             icon={<SearchOutlined />}
             style={{
-              margin: "5px",
+              marginLeft: "5px",
               color: "white",
               backgroundColor: "#c7027c",
               border: "transparent",
             }}
           />
-        </Link>
-      </Tooltip>
+        </Tooltip>
+      </Link>
     </div>
     <div className="user">
       <Button

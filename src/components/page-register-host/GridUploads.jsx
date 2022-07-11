@@ -1,14 +1,52 @@
-import img1 from "../../images/travel-images/c1.png";
+import { Col, Row } from "antd";
+import React from "react";
+import imageMain from "../../images/collage/main-1.png";
 
-export default function GridUploads() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        gridTemplateColumns: "repeat(4, 4fr)",
-      }}
-    >
-      <img src={img1}></img>
-    </div>
-  );
-}
+const GridUploads = () => (
+  <>
+    <Row gutter={[16, 24]}>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+      <Col className="gutter-row" span={6}>
+        <div>
+          <img style={{ width: "200px" }} src={imageMain} />
+        </div>
+      </Col>
+    </Row>
+  </>
+);
+
+export default GridUploads;

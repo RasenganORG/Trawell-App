@@ -1,4 +1,7 @@
+// react
 import React, { useState, useEffect, useRef } from "react";
+
+import OSM from "ol/source/OSM";
 
 // openlayers
 import Map from "ol/Map";
@@ -35,11 +38,8 @@ function MapWrapper(props) {
     const initialMap = new Map({
       target: mapElement.current,
       layers: [
-        // USGS Topo
         new TileLayer({
-          source: new XYZ({
-            url: "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}",
-          }),
+          source: new OSM(),
         }),
 
         // Google Maps Terrain
@@ -104,9 +104,9 @@ function MapWrapper(props) {
     <div>
       <div ref={mapElement} className="map-container"></div>
 
-      <div className="clicked-coord-label">
-        <p>{selectedCoord ? toStringXY(selectedCoord, 5) : ""}</p>
-      </div>
+      {/* <div className="clicked-coord-label">
+        <p>{ (selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
+      </div> */}
     </div>
   );
 }

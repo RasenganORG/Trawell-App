@@ -4,6 +4,7 @@ import { Button, Dropdown, Menu } from "antd";
 import "antd/dist/antd.css";
 import CheckIn from "../page-home/CheckIn";
 import WhoTravels from "../page-home/WhoTravels";
+import WhoTravelsLong from "../page-home/WhoTravelsLong";
 
 export default function CardSummary() {
   const menu = (
@@ -30,7 +31,7 @@ export default function CardSummary() {
   );
 
   return (
-    <div>
+    <>
       <Card
         hoverable
         title="180$/night"
@@ -51,9 +52,7 @@ export default function CardSummary() {
             <Button>Checkout 18.08.2022</Button>
           </Dropdown>
         </div>
-        <Dropdown overlay={menu} placement="bottom" arrow>
-          <Button style={{ width: "100%" }}>Who travels?</Button>
-        </Dropdown>
+        <WhoTravelsLong />
         <h3 style={{ marginTop: "20px" }}>Total price: 592$</h3>
         <Button
           style={{
@@ -70,6 +69,6 @@ export default function CardSummary() {
           Reserve
         </Button>
       </Card>
-    </div>
+    </>
   );
 }

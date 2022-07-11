@@ -2,10 +2,9 @@ import React from "react";
 import Summary from "./Summary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocation } from "@fortawesome/free-solid-svg-icons";
-import amenities from "../../images/amenities.png";
-import MapInfo from "./MapInfo";
 import CardAmenities from "./CardAmenities";
 import CardSummary from "./CardSummary";
+import MapComp from "../map/MapComp";
 
 const Info = () => {
   return (
@@ -62,7 +61,16 @@ const Info = () => {
           <CardSummary />
         </div>
       </div>
-      <MapInfo />
+      <div
+        style={{
+          width: "60%",
+          marginLeft: "20%",
+          paddingTop: 25,
+          paddingBottom: 100,
+        }}
+      >
+        <MapComp />
+      </div>
     </div>
   );
 };

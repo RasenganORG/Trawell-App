@@ -35,13 +35,13 @@
 }
 
 .checkin {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .guests {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .user-icon {
@@ -135,4 +135,44 @@
   width: 45%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  margin-right: 0;
+}
+
+.App {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.app-label {
+  width: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: white;
+  pointer-events: none;
+}
+
+.map-container {
+  height: 50vh;
+}
+
+.clicked-coord-label {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: white;
+  border-radius: 5px;
+}
+
+.clicked-coord-label p {
+  margin: 10px;
+}
+
+.guests {
+  width: 500px;
 }

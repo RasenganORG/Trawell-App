@@ -1,6 +1,7 @@
 import CardElement from "../page-home/CardElement";
 import Navbar from "../page-home/Navbar";
 import map from "../../images/map-sample.png";
+import MapComp from "../map/MapComp";
 
 export default function FilteredPage() {
   return (
@@ -19,17 +20,21 @@ export default function FilteredPage() {
           <CardElement />
           <CardElement />
           <CardElement />
+          <CardElement />
+          <CardElement />
+          <CardElement />
+          <CardElement />
         </div>
-        <img
-          src={map}
+        <div
           style={{
-            marginLeft: "50%",
-            width: "45%",
-            height: "350px",
-            marginTop: "30px",
+            width: "50%",
             position: "fixed",
+            marginLeft: "46%",
+            marginTop: "3%",
           }}
-        ></img>
+        >
+          <MapComp />
+        </div>
       </div>
     </div>
   );

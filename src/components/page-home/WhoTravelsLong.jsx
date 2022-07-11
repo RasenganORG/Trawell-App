@@ -69,10 +69,10 @@ const menu = (
   />
 );
 
-const WhoTravels = () => (
+const WhoTravelsLong = () => (
   <Dropdown overlay={menu} placement="bottom" arrow>
-    <Button>Who travels?</Button>
+    <Button style={{ width: "100%" }}>Who travels?</Button>
   </Dropdown>
 );
 
-export default WhoTravels;
+export default WhoTravelsLong;

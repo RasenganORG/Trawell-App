@@ -1,9 +1,6 @@
 import React from "react";
-import CarouselComp from "../page-details/CarouselComp";
 import Navbar from "../page-home/Navbar";
 import Info from "../page-details/Info";
-import CalendarComp from "../page-details/CalendarComp";
-import MapWrapper from "../MapWrapper";
 import CollagePhotos from "../page-details/CollagePhotos";
 
 const DetailPage = () => {
@@ -16,7 +13,6 @@ const DetailPage = () => {
       <br></br>
       <Info />
       <br></br>
-      {/* <CalendarComp /> */}
     </div>
   );
 };
