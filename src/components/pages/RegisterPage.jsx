@@ -27,18 +27,19 @@ const RegisterPage = () => {
         }}
         onValuesChange={onFormLayoutChange}
         size={componentSize}
+        id="register-forms"
       >
-        <Form.Item label="First Name">
-          <Input />
+        <Form.Item label="First Name" >
+          <Input id="firstName"/>
         </Form.Item>
         <Form.Item label="Last Name">
-          <Input />
+          <Input id="lastName"/>
         </Form.Item>
         <Form.Item label="Email">
-          <Input />
+          <Input id="email"/>
         </Form.Item>
         <Form.Item label="Birthdate">
-          <DatePicker />
+          <DatePicker id="calendar"/>
         </Form.Item>
         <Form.Item
           label="Password"
@@ -50,7 +51,7 @@ const RegisterPage = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password id="password"/>
         </Form.Item>
 
         <Form.Item
@@ -63,12 +64,9 @@ const RegisterPage = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password id="confirmPassword"/>
         </Form.Item>
-        <Form.Item label="Birthdate">
-          <DatePicker />
-        </Form.Item>
-        <Button type="primary">Submit</Button>
+        <Button type="primary" id="submit">Submit</Button>
       </Form>
     </div>
   );
