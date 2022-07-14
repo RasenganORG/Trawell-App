@@ -7,7 +7,6 @@ import {
   faPlug,
   faWifi,
   faSnowflake,
-  faSnowman,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function CardAmenities() {

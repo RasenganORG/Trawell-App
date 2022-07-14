@@ -1,16 +1,12 @@
 import React from "react";
-import { Button, Dropdown, Tooltip, Layout } from "antd";
+import { Button, Dropdown, Layout } from "antd";
 import { Link } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
-import "antd/dist/antd.css";
-
 import Logo from "../../images/logo.png";
 
 import CheckIn from "./CheckIn";
 import Search from "./Search";
 import WhoTravels from "./WhoTravels";
 import UserAcc from "./UserAcc";
-import CascaderButton from "./CascaderButton";
 
 const { Header } = Layout;
 
@@ -37,19 +33,15 @@ const Navbar = () => (
       <Search />
       <WhoTravels />
       <Link to="/search-result">
-        <Tooltip title="Find your place">
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<SearchOutlined />}
-            style={{
-              marginLeft: "5px",
-              color: "white",
-              backgroundColor: "#c7027c",
-              border: "transparent",
-            }}
-          />
-        </Tooltip>
+        <Button
+          style={{
+            backgroundColor: "#c7027c",
+            border: "none",
+          }}
+          type="primary"
+        >
+          Find
+        </Button>
       </Link>
     </div>
     <div className="user">

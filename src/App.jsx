@@ -11,7 +11,6 @@ import DetailPage from "./components/pages/DetailPage";
 import FilteredPage from "./components/pages/FilteredPage";
 
 export default function App() {
-  console.log("working");
   return (
     <Router>
       <Routes>

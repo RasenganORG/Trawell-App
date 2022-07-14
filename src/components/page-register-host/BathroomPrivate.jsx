@@ -1,4 +1,4 @@
-import { Input, Radio, Space } from "antd";
+import { Radio, Space } from "antd";
 import React, { useState } from "react";
 
 const BathroomPrivate = () => {

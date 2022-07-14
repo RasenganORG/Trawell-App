@@ -1,10 +1,9 @@
 import React from "react";
-import Summary from "./Summary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocation } from "@fortawesome/free-solid-svg-icons";
 import CardAmenities from "./CardAmenities";
 import CardSummary from "./CardSummary";
-import MapComp from "../map/MapComp";
+import MapWrapper from "../map/MapWrapper";
 
 const Info = () => {
   return (
@@ -69,7 +68,7 @@ const Info = () => {
           paddingBottom: 100,
         }}
       >
-        <MapComp />
+        <MapWrapper />
       </div>
     </div>
   );

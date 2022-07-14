@@ -45,18 +45,9 @@ const Amenities = () => (
   <>
     <Checkbox.Group
       options={plainOptions}
-      defaultValue={["Kitchen"]}
+      defaultValue={[""]}
       onChange={onChange}
     />
-    <br />
-    <br />
-    <Checkbox.Group
-      options={options}
-      defaultValue={["Wifi"]}
-      onChange={onChange}
-    />
-    <br />
-    <br />
   </>
 );
 

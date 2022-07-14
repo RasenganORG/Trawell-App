@@ -1,6 +1,5 @@
 import { Form, Input, Select, DatePicker, InputNumber } from "antd";
-import map from "../../images/map-sample.png";
-import MapComp from "../map/MapComp";
+import MapWrapper from "../map/MapWrapper";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -40,7 +39,7 @@ const Location = () => {
         <TextArea rows={4} />
       </Form.Item>
       <div style={{ width: "67%", marginLeft: "16.5%" }}>
-        <MapComp />
+        <MapWrapper />
       </div>
     </Form>
   );

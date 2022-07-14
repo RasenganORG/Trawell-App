@@ -1,7 +1,8 @@
 import CardElement from "../page-home/CardElement";
 import Navbar from "../page-home/Navbar";
-import map from "../../images/map-sample.png";
-import MapComp from "../map/MapComp";
+import MapWrapper from "../map/MapWrapper";
+
+const cardElements = Array(8).fill(1);
 
 export default function FilteredPage() {
   return (
@@ -14,16 +15,9 @@ export default function FilteredPage() {
         }}
       >
         <div className="filtered-layout-content">
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
-          <CardElement />
+          {cardElements.map((element, index) => (
+            <CardElement key={index} altkey={index} />
+          ))}
         </div>
         <div
           style={{
@@ -33,7 +27,7 @@ export default function FilteredPage() {
             marginTop: "3%",
           }}
         >
-          <MapComp />
+          <MapWrapper />
         </div>
       </div>
     </div>
