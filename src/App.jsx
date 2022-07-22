@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 
 import HomePage from "./components/pages/HomePage";
 import Login from "./components/pages/LoginPage";
@@ -12,9 +12,8 @@ import FilteredPage from "./components/pages/FilteredPage";
 
 export default function App() {
   return (
-    <Router>
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="*" element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -22,6 +21,5 @@ export default function App() {
         <Route path="/place-detail" element={<DetailPage />} />
         <Route path="/search-result" element={<FilteredPage />} />
       </Routes>
-    </Router>
   );
 }

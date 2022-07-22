@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, DatePicker, Form, Input } from "antd";
 import { useState } from "react";
-import Navbar from "../page-home/Navbar";
+import NavbarSimple from "../page-home/NavbarSimple";
 
 const RegisterPage = () => {
   const [componentSize, setComponentSize] = useState("default");
@@ -12,7 +12,7 @@ const RegisterPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarSimple />
       <Form
         className="form-register"
         labelCol={{

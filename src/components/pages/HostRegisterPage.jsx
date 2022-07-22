@@ -11,7 +11,7 @@ import Bathrooms from "../page-register-host/Bathrooms";
 import BathroomPrivate from "../page-register-host/BathroomPrivate";
 import Location from "../page-register-host/Location";
 import UploadPhotos from "../page-register-host/UploadPhotos";
-import Navbar from "../page-home/Navbar";
+import NavbarSimple from "../page-home/NavbarSimple";
 import Amenities from "../page-register-host/Amenities";
 import GridUploads from "../page-register-host/GridUploads";
 
@@ -59,7 +59,7 @@ const HostRegisterPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarSimple />
       <div
         style={{
           width: "60%",
@@ -90,7 +90,7 @@ const HostRegisterPage = () => {
             </Button>
           )}
           {current === steps.length - 1 && (
-            <Link to="/home">
+            <Link to="/">
               <Button
                 style={{
                   backgroundColor: "#c7027c",

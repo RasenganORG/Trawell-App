@@ -1,24 +1,94 @@
-describe("complete the register page", () =>
-{
-	it("complets correctly", () => {
-		cy.visit("http://localhost:3000/register")
-		cy.get("#register-forms").should("exist")
-		cy.wait(500);
-		cy.get('#firstName').type("Teodor")
-		cy.wait(500);
-		cy.get('#lastName').type("Voicu")
-		cy.wait(500);
-		cy.get('#email').type("voicuteodor@yahoo.com")
-		cy.wait(500);
-		cy.get('#calendar').click()
-		cy.wait(500);
-		cy.get('#password').type("12345")
-		cy.wait(500);
-		cy.get('#confirmPassword').type("12345")
-		cy.wait(500);
-		cy.get('#submit').click()
+/// <reference types="cypress" />
+
+describe('Testing home page', () => {
+	beforeEach(() => {
+		cy.visit('http://localhost:3000/')
+	})
+	it('locating', () => {
+		// Get all elements by tag name
+		cy.get('button')
+		cy.get('span')
+
+		// Get elements by className
+		cy.get(".ant-btn-primary")
+
+		// Get all elements with specific class
+		cy.get("[class='ant-btn ant-btn-default ant-dropdown-trigger']")
+		cy.get("[class='ant-select ant-select-auto-complete ant-select-single ant-select-show-search']")
+		cy.get("[class='ant-btn ant-btn-default ant-dropdown-trigger checkin']")
+
+		//Get all elements by id
+		// cy.get("[id = 'xxxx']")
+		// cy.get("#xxxx")
+
+		// Get all elements by specific attribute
+		// cy.get("[type='submit']")
+
+		// Get all elements by tag name AND class
+		cy.get("button.ant-dropdown-trigger")
+
+		// Get all elements by tag name AND class AND id
+		cy.get("button.ant-dropdown-trigger#btn-who-travels")
+
+		// Get all elements by tag name AND class  AND type attribute
+		// cy.get("button.className[type='submit']")
+
+		//Get all elements with specific data test id
+		cy.get("[data-cy='blabla']")
+		cy.getByTestId("blabla")
+	})
+
+	it("locating elements with contains", () => {
+		
+	})
 })
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// describe("complete the register page", () =>
+// {
+// 	it("complets correctly", () => {
+// 		cy.visit("http://localhost:3000/register")
+// 		cy.get("#register-forms").should("exist")
+// 		cy.wait(500);
+// 		cy.get('#firstName').type("Teodor")
+// 		cy.wait(500);
+// 		cy.get('#lastName').type("Voicu")
+// 		cy.wait(500);
+// 		cy.get('#email').type("voicuteodor@yahoo.com")
+// 		cy.wait(500);
+// 		cy.get('#calendar').click()
+// 		cy.wait(500);
+// 		cy.get('#password').type("12345")
+// 		cy.wait(500);
+// 		cy.get('#confirmPassword').type("12345")
+// 		cy.wait(500);
+// 		cy.get('#submit').click() 
+// })
+// })
 
 // describe("test home page", () =>
 // {

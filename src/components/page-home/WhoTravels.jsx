@@ -71,7 +71,7 @@ const menu = (
 
 const WhoTravels = () => (
   <Dropdown overlay={menu} placement="bottom" arrow>
-    <Button>Who travels?</Button>
+    <Button id="btn-who-travels">Who travels?</Button>
   </Dropdown>
 );
 

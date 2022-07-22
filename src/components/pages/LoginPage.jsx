@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import Navbar from "../page-home/Navbar";
+import NavbarSimple from "../page-home/NavbarSimple";
 
 const Login = () => {
   const onFinish = (values) => {
@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavbarSimple />
       <Form
         className="form-login"
         name="basic"

@@ -135,7 +135,8 @@
   width: 45%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-right: 0;
+  margin: 0;
+  
 }
 
 .App {
