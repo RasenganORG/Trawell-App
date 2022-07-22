@@ -4,7 +4,7 @@ import {Routes, Route} from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import Login from "./components/pages/LoginPage";
 import "antd/dist/antd.css";
-import "./app.css";
+import "./App.css";
 import Register from "./components/pages/RegisterPage";
 import HostRegisterPage from "./components/pages/HostRegisterPage";
 import DetailPage from "./components/pages/DetailPage";
