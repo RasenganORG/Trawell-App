@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login, reset } from "../features/auth/authSlice";
+import Spinner from "../Components/Spinner";
 
 const LoginTest = () => {
 	const [formData, setFormData] = useState({
@@ -6,8 +11,26 @@ const LoginTest = () => {
 		password: "",
 	});
 
-	const { email, password } =
-		formData;
+	const { email, password } = formData;
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const { user, isLoading, isError, isSuccess, message } = useSelector(
+		(state) => state.auth
+	);
+
+	useEffect(() => {
+		if (isError) {
+			toast.error(message);
+		}
+
+		if (isSuccess) {
+			navigate("/");
+		}
+
+		dispatch(reset());
+	}, [user, isError, message, navigate, dispatch]);
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({
@@ -17,7 +40,18 @@ const LoginTest = () => {
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();
+
+		const userData = {
+			email,
+			password,
+		};
+
+		dispatch(login(userData));
 	};
+
+	if (isLoading) {
+		return <Spinner />;
+	}
 
 	return (
 		<>
@@ -31,6 +65,7 @@ const LoginTest = () => {
 							name='email'
 							value={email}
 							placeholder='Enter your email'
+							autoComplete='false'
 							onChange={onChange}
 						/>
 					</div>
@@ -42,6 +77,7 @@ const LoginTest = () => {
 							name='password'
 							value={password}
 							placeholder='Enter password'
+							autoComplete='false'
 							onChange={onChange}
 						/>
 					</div>

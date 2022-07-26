@@ -1,48 +1,39 @@
-import React from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Button } from "antd";
 import Logo from "../images/logo.png";
 import UserAcc from "../Components/userAcc";
 
 const LayoutPage = () => {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 	return (
-        <div>
-		<div
-        style={{
-            margin: 0,
-            backgroundColor: "white",
-            boxShadow: "5px 8px 5px 3px rgba(200, 200, 200, 0.3)",
-            height: "80px",
-            display: "flex",
-            justifyContent:"space-evenly",
-            alignItems: "center"
-        }}
-        >
-            <Link to='/'>
-            <img 
-            src={Logo} 
-            alt="mypagelogo"
-            style={{width: "120px"}}
-            />
-            </Link>
-			<Button
-				onClick={() => navigate("search")}
+		<div>
+			<div
 				style={{
-					backgroundColor: "#c7027c",
-					border: "none",
+					margin: 0,
+					backgroundColor: "white",
+					boxShadow: "5px 8px 5px 3px rgba(200, 200, 200, 0.3)",
+					height: "80px",
+					display: "flex",
+					justifyContent: "space-evenly",
+					alignItems: "center",
 				}}
-				type='primary'
 			>
-				Find
-			</Button>
-            <Button
-					onClick={() => navigate('register-host')}
+				<Link to='/'>
+					<img src={Logo} alt='mypagelogo' style={{ width: "120px" }} />
+				</Link>
+				<Button
+					onClick={() => navigate("search")}
+					style={{
+						backgroundColor: "#c7027c",
+						border: "none",
+					}}
+					type='primary'
 				>
-					Become a host
+					Find
 				</Button>
-                <UserAcc />
-            </div>
+				<Button onClick={() => navigate("register-host")}>Become a host</Button>
+				<UserAcc />
+			</div>
 			<Outlet />
 		</div>
 	);

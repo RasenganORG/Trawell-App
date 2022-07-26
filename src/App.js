@@ -12,7 +12,7 @@ import { AuthProvider } from "./Components/auth/AuthProvider";
 import "antd/dist/antd.css";
 import "./App.css";
 import Register from "./Pages/Register";
-import LoginTest from "./Components/LoginTest";
+import LoginTest from './Pages/LoginTest';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
