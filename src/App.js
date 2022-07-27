@@ -15,6 +15,8 @@ import Register from "./Pages/Register";
 import LoginTest from './Pages/LoginTest';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import RegisterPage from "./Pages/RegisterPage";
+import Login from "./Pages/Login";
 
 function App() {
 	return (
@@ -29,7 +31,7 @@ function App() {
 							<Route path='rooms/:roomId' element={<RoomDetail />} />
 							<Route path='search' element={<FilteredContent />} />
 							<Route path='register-host' element={<RegisterHostPage />} />
-							<Route path='register-new-user' element={<Register />} />
+							<Route path='register-new-user' element={<RegisterPage />} />
 							<Route
 								path='user-profile'
 								element={
@@ -38,7 +40,7 @@ function App() {
 									</RequireAuth>
 								}
 							/>
-							<Route path='login' element={<LoginTest />} />
+							<Route path='login' element={<Login />} />
 						</Route>
 						<Route path='*' element={<NotFound />} />
 					</Routes>

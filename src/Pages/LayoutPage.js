@@ -14,7 +14,7 @@ const LayoutPage = () => {
 					boxShadow: "5px 8px 5px 3px rgba(200, 200, 200, 0.3)",
 					height: "80px",
 					display: "flex",
-					justifyContent: "space-evenly",
+					justifyContent: "space-around",
 					alignItems: "center",
 				}}
 			>
