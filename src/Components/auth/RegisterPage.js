@@ -2,8 +2,8 @@ import { Button, DatePicker, Form, Input, Select } from "antd";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { register, reset } from "../features/auth/authSlice";
-import Spinner from "../Components/Spinner";
+import { register, authActions } from '../auth/authSlice'
+import Spinner from "../Spinner";
 import { toast } from "react-toastify";
 
 const { Option } = Select;
@@ -32,7 +32,7 @@ function RegisterPage() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { user, isLoading, isError, isSuccess, message } = useSelector(
+	const { isLoading, isError, isSuccess, message } = useSelector(
 		(state) => state.auth
 	);
 
@@ -45,8 +45,8 @@ function RegisterPage() {
 			navigate("/");
 		}
 
-		dispatch(reset());
-	}, [user, isError, message, navigate, dispatch]);
+		dispatch(authActions.reset());
+	}, [isError, isSuccess, message, navigate, dispatch]);
 
 	const onChange = (e) => {
 		setFormData((prevState) => ({
