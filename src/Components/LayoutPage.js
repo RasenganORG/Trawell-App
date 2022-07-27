@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Button } from "antd";
 import Logo from "../images/logo.png";
-import UserAcc from "../Components/userAcc";
+import UserAcc from "../components/profile/UserMenu";
 
 const LayoutPage = () => {
 	const navigate = useNavigate();

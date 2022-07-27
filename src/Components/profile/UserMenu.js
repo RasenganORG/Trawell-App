@@ -8,7 +8,7 @@ const menu = (
 		items={[
 			{
 				key: "1",
-				label: <Link to='register-new-user'>Register</Link>,
+				label: <Link to='register-user'>Register</Link>,
 			},
 			{
 				key: "2",
