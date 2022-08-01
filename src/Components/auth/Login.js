@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, authActions } from '../auth/authSlice'
+import { login, authActions } from "../auth/authSlice";
 import Spinner from "../Spinner";
 import { Button, Form, Input } from "antd";
 
@@ -17,14 +17,10 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const test = useSelector(
-    (state) => state.auth
-  );
-const { isLoading, isError, isSuccess, message } = test
-    console.log({authActions, test});
+  const test = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = test;
 
   useEffect(() => {
-    console.log({isSuccess, isLoading});
     if (isError) {
       toast.error(message);
     }
