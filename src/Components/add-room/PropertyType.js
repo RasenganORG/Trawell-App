@@ -2,9 +2,7 @@ import { Select } from "antd";
 import React from "react";
 const { Option } = Select;
 
-const onSearch = (value) => {
-  console.log("search:", value);
-};
+const onSearch = (value) => {};
 
 const PropertyType = (props) => {
   return (

@@ -1,7 +1,7 @@
 import { Button, message, Steps } from "antd";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux/es/exports";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux/es/exports";
+import { useNavigate } from "react-router-dom";
 import HouseType from "./HouseType";
 import PropertyType from "./PropertyType";
 import EntirePlace from "./EntirePlace";
@@ -14,6 +14,7 @@ import Location from "./Location";
 import Amenities from "./Amenities";
 import { addRoom } from "../rooms/roomSlice";
 import { toast } from "react-toastify";
+import UploadPhotos from "./UploadPhotos";
 
 const AddRoomPage = () => {
   const [current, setCurrent] = useState(0);
@@ -61,7 +62,6 @@ const AddRoomPage = () => {
   } = formData;
 
   const onChangeCheckbox = (checkedValues) => {
-    console.log(formData);
     setFormData((prevState) => ({
       ...prevState,
       amenities: checkedValues,
@@ -69,7 +69,6 @@ const AddRoomPage = () => {
   };
 
   const onChangeSelect = (value, inputName) => {
-    console.log(formData);
     setFormData((prevState) => ({
       ...prevState,
       [inputName]: value,
@@ -77,8 +76,6 @@ const AddRoomPage = () => {
   };
 
   const onRadioSelect = (e) => {
-    console.log(formData);
-    console.log("radio checked", e.target.value);
     setFormData((prevState) => ({
       ...prevState,
       bathroomPrivate: e.target.value,
@@ -86,7 +83,6 @@ const AddRoomPage = () => {
   };
 
   const onChangeInput = (e) => {
-    console.log(formData);
     setFormData((prevState) => ({
       ...prevState,
       location: {
@@ -125,7 +121,7 @@ const AddRoomPage = () => {
       amenities,
     };
     dispatch(addRoom(roomData));
-    console.log("room was added");
+    navigate("/");
   };
 
   const { Step } = Steps;
@@ -134,10 +130,12 @@ const AddRoomPage = () => {
     {
       id: 1,
       title: "Property",
-      content: [
-        <HouseType onChangeSelect={onChangeSelect} />,
-        <PropertyType onChangeSelect={onChangeSelect} />,
-      ],
+      content: (
+        <>
+          <HouseType onChangeSelect={onChangeSelect} />
+          <PropertyType onChangeSelect={onChangeSelect} />
+        </>
+      ),
     },
     {
       id: 2,
@@ -168,7 +166,12 @@ const AddRoomPage = () => {
     {
       id: 4,
       title: "Amenities",
-      content: [<Amenities onChangeCheckbox={onChangeCheckbox} />],
+      content: <Amenities onChangeCheckbox={onChangeCheckbox} />,
+    },
+    {
+      id: 5,
+      title: "Photos",
+      content: <UploadPhotos />,
     },
   ];
 
@@ -185,7 +188,7 @@ const AddRoomPage = () => {
       >
         <Steps current={current}>
           {steps.map((item) => (
-            <Step key={steps.id} title={item.title} />
+            <Step key={item.title} title={item.title} />
           ))}
         </Steps>
         <div

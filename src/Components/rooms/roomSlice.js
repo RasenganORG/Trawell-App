@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import roomService from "./roomService";
 
 const initialState = {
-  rooms: null,
+  rooms: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -76,7 +76,7 @@ export const roomSlice = createSlice({
       .addCase(addRoom.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = action.payload;
+        state.rooms.push(action.payload);
       })
       .addCase(addRoom.rejected, (state, action) => {
         state.isLoading = false;

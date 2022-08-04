@@ -19,7 +19,7 @@ export default function Rooms() {
   }, [dispatch]);
 
   const cardEl = (room, id) => {
-    const { location, placeType, photos } = room;
+    const { location, placeType } = room;
 
     return (
       <div key={id} style={{ width: 300, margin: "auto", marginTop: 50 }}>
@@ -31,9 +31,14 @@ export default function Rooms() {
             }}
             cover={
               <img
-                style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+                style={{
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                  objectFit: "cover",
+                  height: 200,
+                }}
                 alt='example'
-                src={`${photos}`}
+                src={`${location.photos}`}
               />
             }
           >
@@ -67,7 +72,7 @@ export default function Rooms() {
         backgroundColor: "transparent",
       }}
     >
-      <Row gutter={[24, 24]}>
+      <Row gutter={[6, 6]}>
         {rooms
           ? rooms.map((room, id) => {
               return cardEl(room, id);
