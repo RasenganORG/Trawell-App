@@ -1,64 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
-body {
-  font-family: 'Poppins', sans-serif;
+/* body {
+  font-family: "Poppins", sans-serif;
   height: 100vh;
-}
+} */
 
-a {
-  text-decoration: none;
-  color: #000;
-}
-
-p {
-  line-height: 1.7;
-}
-
-ul {
-  list-style: none;
-}
-
-li {
-  line-height: 2.2;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.container {
+/* .container {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
-}
+} */
 
-.header {
+/* .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid #e6e6e6;
   margin-bottom: 60px;
-}
+} */
 
-.header ul {
+/* .header ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
-.header ul li {
+/* .header ul li {
   margin-left: 20px;
 }
 
@@ -69,9 +45,9 @@ h3 {
 
 .header ul li a:hover {
   color: #777;
-}
+} */
 
-.header ul li a svg {
+/* .header ul li a svg {
   margin-right: 5px;
 }
 
@@ -106,9 +82,9 @@ h3 {
   cursor: pointer;
   border: none;
   background: none;
-}
+} */
 
-.form,
+/* .form,
 .content {
   width: 45%;
   margin: 0 auto;
@@ -134,9 +110,9 @@ h3 {
   text-align: left;
   display: block;
   margin: 0 0 5px 3px;
-}
+} */
 
-.btn {
+/* .btn {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -150,9 +126,9 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.btn svg {
+/* .btn svg {
   margin-right: 8px;
 }
 
@@ -168,7 +144,7 @@ h3 {
 
 .btn:hover {
   transform: scale(0.98);
-}
+} */
 
 .loadingSpinnerContainer {
   position: fixed;
@@ -190,27 +166,4 @@ h3 {
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 600px) {
-  .form {
-    width: 90%;
-  }
-
-  .heading h1 {
-    font-size: 2rem;
-  }
-
-  .heading p {
-    font-size: 1.5rem;
-  }
 }

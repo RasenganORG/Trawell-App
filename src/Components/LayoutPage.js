@@ -31,7 +31,7 @@ const LayoutPage = () => {
         >
           Find
         </Button>
-        <Button onClick={() => navigate("register-host")}>Become a host</Button>
+        <Button onClick={() => navigate("add-room")}>Become a host</Button>
         <UserAcc />
       </div>
       <Outlet />

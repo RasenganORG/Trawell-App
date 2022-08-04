@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LayoutPage from "./components/LayoutPage";
 import RoomDetail from "./components/rooms/RoomDetail";
 import FilteredRooms from "./components/rooms/FilteredRooms";
-import RegisterHostPage from "./components/auth/RegisterHostPage";
+import AddRoomPage from "./components/add-room/AddRoomPage";
 import NotFound from "./components/NotFound";
 import UserProfilePage from "./components/profile/UserProfilePage";
 import { RequireAuth } from "./components/auth/RequireAuth";
@@ -34,7 +34,7 @@ function App() {
               }
             />
           </Route>
-          <Route path='register-host' element={<RegisterHostPage />} />
+          <Route path='add-room' element={<AddRoomPage />} />
           <Route path='register-user' element={<RegisterPage />} />
           <Route path='login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
