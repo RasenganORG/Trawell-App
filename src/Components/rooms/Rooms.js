@@ -2,7 +2,7 @@ import { getAllRooms } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
-import { Layout, Row, Card, Badge, Rate } from "antd";
+import { Layout, Row } from "antd";
 import CardComp from "./CardComp";
 
 export default function Rooms() {
@@ -13,8 +13,6 @@ export default function Rooms() {
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
-
-  <CardComp />;
 
   if (isLoading) {
     return <Spinner />;

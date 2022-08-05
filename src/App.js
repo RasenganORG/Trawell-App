@@ -24,7 +24,7 @@ function App() {
             <Route index element={<Rooms />} />
             <Route path='rooms' element={<Rooms />} />
             <Route path='rooms/:roomId' element={<RoomDetail />} />
-            <Route path='search' element={<FilteredRooms />} />
+            <Route path='search/:country' element={<FilteredRooms />} />
             <Route
               path='profile'
               element={

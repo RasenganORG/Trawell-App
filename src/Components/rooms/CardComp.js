@@ -27,7 +27,7 @@ export default function CardComp(props) {
                 height: 200,
               }}
               alt='example'
-              src={`${location.photos}`}
+              src={`/${location.photos}`}
             />
           }
         >
@@ -36,7 +36,7 @@ export default function CardComp(props) {
             <FontAwesomeIcon size='sm' icon={faStar} />
           </h4>
           <Meta
-            title={`${location.country},${location.city}`}
+            title={`${location.country}, ${location.city}`}
             description={placeType}
           />
           <h5>

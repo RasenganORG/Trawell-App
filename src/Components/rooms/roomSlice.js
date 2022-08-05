@@ -79,13 +79,13 @@ export const roomSlice = createSlice({
       .addCase(getAllRooms.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = action.payload;
+        state.rooms = [...action.payload];
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.rooms = null;
+        state.rooms = [];
       })
       .addCase(addRoom.pending, (state) => {
         state.isLoading = true;
@@ -107,7 +107,7 @@ export const roomSlice = createSlice({
       .addCase(getRoomByCountry.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms.push(action.payload);
+        state.rooms = [...action.payload];
       })
       .addCase(getRoomByCountry.rejected, (state, action) => {
         state.isLoading = false;

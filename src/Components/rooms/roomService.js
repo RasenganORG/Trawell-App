@@ -18,11 +18,10 @@ const getRoom = async () => {
 //GET room by country
 const getRoomByCountry = async (country) => {
   const response = await axios.get(`${API_URL_GET}/${country}`);
-  console.log(response.data);
   return response.data;
 };
 
-getRoomByCountry("România");
+//getRoomByCountry("România");
 
 const roomService = {
   getRoom,
