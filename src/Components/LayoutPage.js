@@ -1,10 +1,20 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Input, Space } from "antd";
+import { useDispatch } from "react-redux";
 import Logo from "../images/logo.png";
 import UserAcc from "../components/profile/UserMenu";
+import { getRoomByCountry } from "./rooms/roomSlice";
 
 const LayoutPage = () => {
+  const { Search } = Input;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onSearch = (value) => {
+    // navigate("/search");
+    dispatch(getRoomByCountry(value));
+  };
+
   return (
     <div>
       <div
@@ -21,7 +31,16 @@ const LayoutPage = () => {
         <Link to='/'>
           <img src={Logo} alt='mypagelogo' style={{ width: "120px" }} />
         </Link>
-        <Button
+        <Space direction='horizontal'>
+          <Search
+            placeholder='Find a place'
+            allowClear
+            enterButton='Search'
+            size='large'
+            onSearch={onSearch}
+          />
+        </Space>
+        {/* <Button
           onClick={() => navigate("search")}
           style={{
             backgroundColor: "#c7027c",
@@ -30,7 +49,7 @@ const LayoutPage = () => {
           type='primary'
         >
           Find
-        </Button>
+        </Button> */}
         <Button onClick={() => navigate("add-room")}>Become a host</Button>
         <UserAcc />
       </div>

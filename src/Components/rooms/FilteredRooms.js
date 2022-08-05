@@ -1,5 +1,7 @@
-const FilteredContent = () => {
-  return <div>Filtered cards + map</div>;
+import React from "react";
+
+const FilteredRooms = () => {
+  return <div>Filtered Rooms</div>;
 };
 
-export default FilteredContent;
+export default FilteredRooms;

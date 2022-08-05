@@ -1,13 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import Heart from "./Heart";
 import { getAllRooms } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
 import { Layout, Row, Card, Badge, Rate } from "antd";
-
-const { Meta } = Card;
+import CardComp from "./CardComp";
 
 export default function Rooms() {
   const { rooms, isLoading } = useSelector((state) => state.roomState);
@@ -18,49 +14,7 @@ export default function Rooms() {
     dispatch(getAllRooms());
   }, [dispatch]);
 
-  const cardEl = (room, id) => {
-    const { location, placeType } = room;
-
-    return (
-      <div key={id} style={{ width: 300, margin: "auto", marginTop: 50 }}>
-        <Badge.Ribbon text='Top rated' color='pink'>
-          <Card
-            hoverable
-            style={{
-              borderRadius: 20,
-            }}
-            cover={
-              <img
-                style={{
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  objectFit: "cover",
-                  height: 200,
-                }}
-                alt='example'
-                src={`${location.photos}`}
-              />
-            }
-          >
-            <h4 style={{ float: "right" }}>
-              4.5
-              <FontAwesomeIcon size='sm' icon={faStar} />
-            </h4>
-            <Meta
-              title={`${location.country},${location.city}`}
-              description={placeType}
-            />
-            <h5>
-              Available: {location.availableFrom} - {location.availableTo}
-            </h5>
-            <h4>{location.price}$/night</h4>
-            <Rate style={{ color: "#c7027c" }} />
-            <Heart />
-          </Card>
-        </Badge.Ribbon>
-      </div>
-    );
-  };
+  <CardComp />;
 
   if (isLoading) {
     return <Spinner />;
@@ -75,7 +29,7 @@ export default function Rooms() {
       <Row gutter={[6, 6]}>
         {rooms
           ? rooms.map((room, id) => {
-              return cardEl(room, id);
+              return <CardComp room={room} index={id} />;
             })
           : "No room added yet"}
       </Row>
