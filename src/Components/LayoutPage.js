@@ -1,10 +1,8 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
-import { Button, Input, Space } from "antd";
+import { Button } from "antd";
 import Logo from "../images/logo.png";
 import UserAcc from "../components/profile/UserMenu";
-import { useSearchParams } from "react-router-dom";
 import SearchComp from "./rooms/SearchComp";
-import { useState } from "react";
 
 const LayoutPage = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from "react";
-import { getRoomByCountry, getAllRooms } from "./roomSlice";
+import { getRoomByCountry } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 
 export default function FilteredRooms() {
   const { rooms, isLoading } = useSelector((state) => state.roomState);
-
+  // console.log("rooms in filtered", rooms);
   const dispatch = useDispatch();
   const { country } = useParams();
 
@@ -30,7 +30,6 @@ export default function FilteredRooms() {
       <Row gutter={[6, 6]}>
         {rooms
           ? rooms.map((room, id) => {
-              console.log("room in mapping", room);
               return <CardComp room={room} index={id} />;
             })
           : "Sorry, no room here!"}

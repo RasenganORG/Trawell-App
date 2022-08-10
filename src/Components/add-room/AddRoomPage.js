@@ -1,7 +1,7 @@
 import { Button, message, Steps } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux/es/exports";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import HouseType from "./HouseType";
 import PropertyType from "./PropertyType";
 import EntirePlace from "./EntirePlace";
@@ -15,6 +15,7 @@ import Amenities from "./Amenities";
 import { addRoom } from "../rooms/roomSlice";
 import { toast } from "react-toastify";
 import UploadPhotos from "./UploadPhotos";
+import Logo from "../../images/logo.png";
 
 const AddRoomPage = () => {
   const [current, setCurrent] = useState(0);
@@ -101,6 +102,7 @@ const AddRoomPage = () => {
         availableTo: endDate,
       },
     }));
+    console.log(typeof startDate);
   };
 
   const dispatch = useDispatch();
@@ -177,6 +179,25 @@ const AddRoomPage = () => {
 
   return (
     <div>
+      <div
+        style={{
+          margin: 0,
+          backgroundColor: "white",
+          boxShadow: "5px 8px 5px 3px rgba(200, 200, 200, 0.3)",
+          height: "80px",
+          display: "flex",
+
+          alignItems: "center",
+        }}
+      >
+        <Link to='/'>
+          <img
+            src={Logo}
+            alt='mypagelogo'
+            style={{ width: "120px", marginLeft: 20 }}
+          />
+        </Link>
+      </div>
       <div
         style={{
           width: "60%",

@@ -1,14 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Heart from "./Heart";
-
+import { useNavigate } from "react-router-dom";
 import { Card, Badge, Rate } from "antd";
 
 const { Meta } = Card;
 
 export default function CardComp(props) {
   const { room, index } = props;
-  const { location, placeType } = room;
+  const { location, placeType, id } = room;
+
+  const navigate = useNavigate();
 
   return (
     <div key={index} style={{ width: 300, margin: "auto", marginTop: 50 }}>
@@ -28,6 +30,9 @@ export default function CardComp(props) {
               }}
               alt='example'
               src={`/${location.photos}`}
+              onClick={() => {
+                navigate(`/rooms/${id}`);
+              }}
             />
           }
         >

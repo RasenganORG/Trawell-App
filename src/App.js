@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import RegisterPage from "./components/auth/RegisterPage";
 import Login from "./components/auth/Login";
 import Rooms from "./components/rooms/Rooms";
+import { Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LayoutPage />}>
-            <Route index element={<Rooms />} />
+            <Route index element={<Navigate to='rooms' />} />
             <Route path='rooms' element={<Rooms />} />
             <Route path='rooms/:roomId' element={<RoomDetail />} />
             <Route path='search/:country' element={<FilteredRooms />} />

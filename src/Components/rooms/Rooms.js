@@ -1,4 +1,4 @@
-import { getAllRooms } from "./roomSlice";
+import { getAllRooms, reset } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
@@ -12,6 +12,7 @@ export default function Rooms() {
 
   useEffect(() => {
     dispatch(getAllRooms());
+    dispatch(reset());
   }, [dispatch]);
 
   if (isLoading) {
