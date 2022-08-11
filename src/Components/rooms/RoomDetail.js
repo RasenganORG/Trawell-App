@@ -18,7 +18,7 @@ const RoomDetail = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  console.log("room is", room);
+  console.log("room in details is", room);
   const { location } = room;
   const dispatch = useDispatch();
   const navigate = useNavigate();
