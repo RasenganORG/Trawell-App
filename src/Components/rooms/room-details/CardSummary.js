@@ -5,13 +5,12 @@ import { DatePicker, InputNumber } from "antd";
 
 const { RangePicker } = DatePicker;
 
-const onChange = (value) => {
-  console.log("changed", value);
-};
-
-export default function CardSummary(props) {
-  const { room } = props;
-
+export default function CardSummary({
+  room,
+  onChangeCalendar,
+  onChangeInput,
+  onSubmit,
+}) {
   return (
     <>
       <Card
@@ -27,20 +26,29 @@ export default function CardSummary(props) {
             display: "flex",
           }}
         >
-          <RangePicker />
+          <RangePicker
+            onChange={(e) => {
+              onChangeCalendar(
+                e[0].format("DD-MM-YYYY"),
+                e[1].format("DD-MM-YYYY")
+              );
+            }}
+          />
         </div>
         <InputNumber
           style={{ width: 165 }}
           min={1}
           max={10}
           defaultValue='Number of trawellers'
-          onChange={onChange}
+          onChange={onChangeInput}
+          name='numberOfTrawellers'
           placeholder='Number of trawellers'
         />
         <h3 style={{ marginTop: "20px" }}>
           Total price: {room.location?.price}$
         </h3>
         <Button
+          onClick={onSubmit}
           style={{
             backgroundColor: "#c7027c",
             border: "none",

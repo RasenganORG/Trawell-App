@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRoomById, reset } from "./roomSlice";
@@ -8,12 +8,65 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faLocation } from "@fortawesome/free-solid-svg-icons";
 import CardAmenities from "./room-details/CardAmenities";
 import CardSummary from "./room-details/CardSummary";
+import { useNavigate } from "react-router-dom";
+import { addBooking } from "../profile/bookingSlice";
 
 const RoomDetail = () => {
-  const { isLoading, room } = useSelector((state) => state.roomState);
+  const { isLoading, isError, isSuccess, message, room } = useSelector(
+    (state) => state.roomState
+  );
+
+  const { user } = useSelector((state) => state.auth);
+
+  console.log("room is", room);
   const { location } = room;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
+
+  console.log("user in room detail", user, { params });
+
+  const [bookingData, setBookingData] = useState({
+    startDate: "",
+    endDate: "",
+    numberOfTrawellers: "",
+    price: "",
+    userId: "",
+    locationId: "",
+  });
+
+  const { startDate, endDate, numberOfTrawellers, price, userId, locationId } =
+    bookingData;
+
+  const onChangeInput = (value) => {
+    setBookingData((prevState) => ({
+      ...prevState,
+      ["numberOfTrawellers"]: value,
+    }));
+  };
+
+  const onChangeCalendar = (startDate, endDate) => {
+    setBookingData((prevState) => ({
+      ...prevState,
+      startDate: startDate,
+      endDate: endDate,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const bookingData = {
+      startDate,
+      endDate,
+      numberOfTrawellers,
+      price,
+      userId: user.id,
+      locationId: params.roomId,
+    };
+    dispatch(addBooking(bookingData));
+    console.log("You booked a room");
+    navigate("/");
+  };
 
   useEffect(() => {
     dispatch(getRoomById(params.roomId));
@@ -77,7 +130,12 @@ const RoomDetail = () => {
             }}
           >
             <CardAmenities room={room} />
-            <CardSummary room={room} />
+            <CardSummary
+              room={room}
+              onChangeCalendar={onChangeCalendar}
+              onChangeInput={onChangeInput}
+              onSubmit={onSubmit}
+            />
           </div>
         </div>
       </div>

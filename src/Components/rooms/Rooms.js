@@ -19,6 +19,8 @@ export default function Rooms() {
     return <Spinner />;
   }
 
+  console.log("all rooms are", rooms);
+
   return (
     <Layout
       style={{
