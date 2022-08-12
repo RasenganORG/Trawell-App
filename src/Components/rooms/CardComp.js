@@ -7,6 +7,7 @@ import { Card, Badge, Rate } from "antd";
 const { Meta } = Card;
 
 export default function CardComp(props) {
+  console.log("props in cardComp", props);
   const { room, index } = props;
   const { location, placeType, id } = room;
 
@@ -37,7 +38,7 @@ export default function CardComp(props) {
           }
         >
           <h4 style={{ float: "right" }}>
-            4.5
+            {(Math.random() * 5).toFixed(2)}
             <FontAwesomeIcon size='sm' icon={faStar} />
           </h4>
           <Meta

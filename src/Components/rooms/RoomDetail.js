@@ -10,6 +10,7 @@ import CardAmenities from "./room-details/CardAmenities";
 import CardSummary from "./room-details/CardSummary";
 import { useNavigate } from "react-router-dom";
 import { addBooking } from "../profile/bookingSlice";
+import { toast } from "react-toastify";
 
 const RoomDetail = () => {
   const { isLoading, isError, isSuccess, message, room } = useSelector(
@@ -32,11 +33,23 @@ const RoomDetail = () => {
     numberOfTrawellers: "",
     price: "",
     userId: "",
-    locationId: "",
+    roomId: "",
+    country: "",
+    city: "",
+    photo: "",
   });
 
-  const { startDate, endDate, numberOfTrawellers, price, userId, locationId } =
-    bookingData;
+  const {
+    startDate,
+    endDate,
+    numberOfTrawellers,
+    price,
+    userId,
+    roomId,
+    country,
+    city,
+    photo,
+  } = bookingData;
 
   const onChangeInput = (value) => {
     setBookingData((prevState) => ({
@@ -59,12 +72,16 @@ const RoomDetail = () => {
       startDate,
       endDate,
       numberOfTrawellers,
-      price,
+      price: room.location.price,
       userId: user.id,
-      locationId: params.roomId,
+      roomId: params.roomId,
+      country: room.location.country,
+      city: room.location.city,
+      photo: room.location.photos,
     };
     dispatch(addBooking(bookingData));
     console.log("You booked a room");
+    toast.info("Booking succesful");
     navigate("/");
   };
 

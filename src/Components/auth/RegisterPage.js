@@ -78,6 +78,7 @@ function RegisterPage() {
       };
 
       dispatch(register(userData));
+      toast.info("Registered Successfully");
     }
   };
 

@@ -1,8 +1,8 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { Button } from "antd";
 import Logo from "../images/logo.png";
-import UserAcc from "../components/profile/UserMenu";
 import SearchComp from "./rooms/SearchComp";
+import UserMenu from "../components/profile/UserMenu";
 
 const LayoutPage = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const LayoutPage = () => {
         </Link>
         <SearchComp />
         <Button onClick={() => navigate("add-room")}>Become a host</Button>
-        <UserAcc />
+        <UserMenu />
       </div>
       <Outlet />
     </div>
