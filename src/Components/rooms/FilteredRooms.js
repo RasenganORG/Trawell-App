@@ -8,8 +8,7 @@ import CardComp from "./CardComp";
 import { useParams } from "react-router-dom";
 
 export default function FilteredRooms() {
-  const { rooms, isLoading } = useSelector((state) => state.roomState);
-  // console.log("rooms in filtered", rooms);
+  const { rooms, isLoading } = useSelector((state) => state.rooms);
   const dispatch = useDispatch();
   const { country } = useParams();
 

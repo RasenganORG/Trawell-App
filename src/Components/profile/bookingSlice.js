@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const addBooking = createAsyncThunk(
-  "bookingState/addBooking",
+  "bookings/addBooking",
   async (bookings, thunkAPI) => {
     try {
       return await bookingService.addBooking(bookings);
@@ -27,7 +27,7 @@ export const addBooking = createAsyncThunk(
 );
 
 export const getAllBookings = createAsyncThunk(
-  "bookingState/getBookings",
+  "bookings/getBookings",
   async (bookings, thunkAPI) => {
     try {
       return await bookingService.getBookings(bookings);
@@ -44,7 +44,7 @@ export const getAllBookings = createAsyncThunk(
 );
 
 export const bookingSlice = createSlice({
-  name: "bookingState",
+  name: "bookings",
   initialState,
   reducers: {
     reset: (state) => {

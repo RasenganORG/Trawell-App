@@ -35,7 +35,14 @@ function App() {
               }
             />
           </Route>
-          <Route path='add-room' element={<AddRoomPage />} />
+          <Route
+            path='add-room'
+            element={
+              <RequireAuth>
+                <AddRoomPage />
+              </RequireAuth>
+            }
+          />
           <Route path='register-user' element={<RegisterPage />} />
           <Route path='login' element={<Login />} />
           <Route path='*' element={<NotFound />} />

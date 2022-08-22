@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const addRoom = createAsyncThunk(
-  "roomState/addRooms",
+  "room/addRooms",
   async (room, thunkAPI) => {
     try {
       return await roomService.addRoom(room);
@@ -28,7 +28,7 @@ export const addRoom = createAsyncThunk(
 );
 
 export const getAllRooms = createAsyncThunk(
-  "roomState/getRooms",
+  "rooms/getRooms",
   async (room, thunkAPI) => {
     try {
       return await roomService.getRooms(room);
@@ -45,7 +45,7 @@ export const getAllRooms = createAsyncThunk(
 );
 
 export const getRoomByCountry = createAsyncThunk(
-  "roomState/getRoomsByCountry",
+  "rooms/getRoomsByCountry",
   async (country, thunkAPI) => {
     try {
       return await roomService.getRoomByCountry(country);
@@ -62,7 +62,7 @@ export const getRoomByCountry = createAsyncThunk(
 );
 
 export const getRoomById = createAsyncThunk(
-  "roomState/getRoomById",
+  "room/getRoomById",
   async (roomId, thunkAPI) => {
     try {
       return await roomService.getRoom(roomId);
@@ -79,7 +79,7 @@ export const getRoomById = createAsyncThunk(
 );
 
 export const roomSlice = createSlice({
-  name: "roomState",
+  name: "rooms",
   initialState,
   reducers: {
     reset: (state) => {

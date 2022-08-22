@@ -6,7 +6,7 @@ import { Layout, Row } from "antd";
 import CardComp from "./CardComp";
 
 export default function Rooms() {
-  const { rooms, isLoading } = useSelector((state) => state.roomState);
+  const { rooms, isLoading } = useSelector((state) => state.rooms);
 
   const dispatch = useDispatch();
 
@@ -18,8 +18,6 @@ export default function Rooms() {
   if (isLoading) {
     return <Spinner />;
   }
-
-  console.log("all rooms are", rooms);
 
   return (
     <Layout

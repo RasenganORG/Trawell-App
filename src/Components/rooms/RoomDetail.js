@@ -14,18 +14,14 @@ import { toast } from "react-toastify";
 
 const RoomDetail = () => {
   const { isLoading, isError, isSuccess, message, room } = useSelector(
-    (state) => state.roomState
+    (state) => state.rooms
   );
 
   const { user } = useSelector((state) => state.auth);
-
-  console.log("room in details is", room);
   const { location } = room;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
-
-  console.log("user in room detail", user, { params });
 
   const [bookingData, setBookingData] = useState({
     startDate: "",

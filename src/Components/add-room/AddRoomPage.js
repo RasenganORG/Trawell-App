@@ -1,6 +1,6 @@
 import { Button, message, Steps } from "antd";
 import { useState } from "react";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useNavigate, Link } from "react-router-dom";
 import HouseType from "./HouseType";
 import PropertyType from "./PropertyType";
@@ -20,6 +20,10 @@ import Logo from "../../images/logo.png";
 const AddRoomPage = () => {
   const [current, setCurrent] = useState(0);
 
+  const { user } = useSelector((state) => state.auth);
+
+  console.log("user in add room is", user);
+
   const next = () => {
     setCurrent(current + 1);
   };
@@ -29,6 +33,7 @@ const AddRoomPage = () => {
   };
 
   const [formData, setFormData] = useState({
+    userId: "",
     placeType: "",
     propertyType: "",
     roomType: "",
@@ -50,6 +55,7 @@ const AddRoomPage = () => {
   });
 
   const {
+    userId,
     placeType,
     propertyType,
     roomType,
@@ -111,6 +117,7 @@ const AddRoomPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const roomData = {
+      userId: user.id,
       placeType,
       propertyType,
       roomType,
@@ -123,6 +130,7 @@ const AddRoomPage = () => {
       amenities,
     };
     dispatch(addRoom(roomData));
+    toast.info("Your listing was added successfuly");
     navigate("/");
   };
 

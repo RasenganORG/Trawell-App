@@ -7,7 +7,6 @@ import { Card, Badge, Rate } from "antd";
 const { Meta } = Card;
 
 export default function CardComp(props) {
-  console.log("props in cardComp", props);
   const { room, index } = props;
   const { location, placeType, id } = room;
 

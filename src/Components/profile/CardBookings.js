@@ -6,7 +6,6 @@ const { Meta } = Card;
 
 const CardBookings = ({ bookings }) => {
   const navigate = useNavigate();
-  console.log("props in card booking", bookings);
   return (
     <div>
       <Card

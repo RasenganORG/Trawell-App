@@ -5,46 +5,29 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../auth/authSlice";
+import { useSelector } from "react-redux";
 
 const UserMenu = () => {
+  const isAuth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const menu = (
+  const menuLogged = (
     <Menu
       items={[
         {
           key: "1",
           label: (
-            <Link to='register-user'>
-              <h4>Register</h4>
+            <Link to='/profile'>
+              <Button type='text'>My profile</Button>
             </Link>
           ),
         },
         {
           key: "2",
           label: (
-            <Link to='login'>
-              {" "}
-              <h4>Login</h4>
-            </Link>
-          ),
-        },
-        {
-          key: "3",
-          label: (
-            <Link to='/profile'>
-              {" "}
-              <h4>My profile</h4>
-            </Link>
-          ),
-        },
-        {
-          key: "4",
-          label: (
             <Button
               type='text'
               onClick={() => {
-                console.log("signed out");
                 dispatch(logout());
                 navigate("/");
               }}
@@ -57,10 +40,49 @@ const UserMenu = () => {
     />
   );
 
+  const menuNotLogged = (
+    <Menu
+      items={[
+        {
+          key: "1",
+          label: (
+            <Link to='register-user'>
+              <Button type='text'>Register</Button>
+            </Link>
+          ),
+        },
+        {
+          key: "2",
+          label: (
+            <Link to='login'>
+              <Button type='text'>Login</Button>
+            </Link>
+          ),
+        },
+      ]}
+    />
+  );
+
   return (
-    <Dropdown overlay={menu} placement='bottom' arrow>
-      <FontAwesomeIcon size='2x' className='user-icon' icon={faUserCircle} />
-    </Dropdown>
+    <div>
+      {isAuth ? (
+        <Dropdown overlay={menuLogged} placement='bottom' arrow>
+          <FontAwesomeIcon
+            size='2x'
+            className='user-icon'
+            icon={faUserCircle}
+          />
+        </Dropdown>
+      ) : (
+        <Dropdown overlay={menuNotLogged} placement='bottom' arrow>
+          <FontAwesomeIcon
+            size='2x'
+            className='user-icon'
+            icon={faUserCircle}
+          />
+        </Dropdown>
+      )}
+    </div>
   );
 };
 
