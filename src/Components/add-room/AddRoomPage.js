@@ -108,7 +108,6 @@ const AddRoomPage = () => {
         availableTo: endDate,
       },
     }));
-    console.log(typeof startDate);
   };
 
   const dispatch = useDispatch();

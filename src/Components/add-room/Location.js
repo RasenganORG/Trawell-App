@@ -34,8 +34,8 @@ const Location = (props) => {
         <RangePicker
           onChange={(e) => {
             props.onChangeCalendar(
-              e[0].format("DD-MM-YYYY"),
-              e[1].format("DD-MM-YYYY")
+              e[0].format("YYYY-MM-DD"),
+              e[1].format("YYYY-MM-DD")
             );
           }}
         />

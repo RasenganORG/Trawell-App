@@ -15,6 +15,7 @@ import RegisterPage from "./components/auth/RegisterPage";
 import Login from "./components/auth/Login";
 import Rooms from "./components/rooms/Rooms";
 import { Navigate } from "react-router-dom";
+import CalendarListings from "./components/profile/CalendarListings";
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
               element={
                 <RequireAuth>
                   <UserProfilePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path='profile/my-calendar'
+              element={
+                <RequireAuth>
+                  <CalendarListings />
                 </RequireAuth>
               }
             />
