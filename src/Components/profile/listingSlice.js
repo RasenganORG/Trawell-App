@@ -9,11 +9,28 @@ const initialState = {
   message: "",
 };
 
-export const getRoomByUserId = createAsyncThunk(
-  "listings/getRoomByUserId",
+export const getListingByUserLogged = createAsyncThunk(
+  "listings/getListings",
   async (userId, thunkAPI) => {
     try {
-      return await listingService.getRoomByUser(userId);
+      return await listingService.getListingByUserId(userId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const updateListingByUserLogged = createAsyncThunk(
+  "listings/updateListing",
+  async (listing, thunkAPI) => {
+    try {
+      return await listingService.editListing(listing);
     } catch (error) {
       const message =
         (error.response &&
@@ -40,15 +57,29 @@ export const listingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getRoomByUserId.pending, (state) => {
+      .addCase(getListingByUserLogged.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getRoomByUserId.fulfilled, (state, action) => {
+      .addCase(getListingByUserLogged.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.listings = [...action.payload];
       })
-      .addCase(getRoomByUserId.rejected, (state, action) => {
+      .addCase(getListingByUserLogged.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.listings = null;
+      })
+      .addCase(updateListingByUserLogged.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateListingByUserLogged.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.listings = [...state.listings, action.payload];
+      })
+      .addCase(updateListingByUserLogged.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

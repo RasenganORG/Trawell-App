@@ -1,7 +1,7 @@
 import { Badge, Calendar } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRoomByUserId, reset } from "../profile/listingSlice";
+import { getListingByUserLogged, reset } from "../profile/listingSlice";
 import moment from "moment";
 import Spinner from "../Spinner";
 
@@ -12,7 +12,7 @@ export default function CalendarListings() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRoomByUserId(user.id));
+    dispatch(getListingByUserLogged(user.id));
     dispatch(reset());
   }, [dispatch]);
 

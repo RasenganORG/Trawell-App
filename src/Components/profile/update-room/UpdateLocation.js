@@ -5,6 +5,7 @@ const { TextArea } = Input;
 
 const UpdateLocation = (props) => {
   const { defaultValue } = props;
+
   return (
     <Form
       style={{ width: "100%" }}

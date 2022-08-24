@@ -16,20 +16,46 @@ const EditListing = (props) => {
     console.log(key);
   };
 
-  const onChangeSelect = () => {
-    console.log("nope");
+  const onChangeSelect = (value, inputName) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [inputName]: value,
+    }));
   };
-  const onRadioSelect = () => {
-    console.log("nope");
+
+  const onChangeInput = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      location: {
+        ...formData.location,
+        [e.target.name]: e.target.value,
+      },
+    }));
   };
-  const onChangeCalendar = () => {
-    console.log("nope");
+
+  const onRadioSelect = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      bathroomPrivate: e.target.value,
+    }));
   };
-  const onChangeInput = () => {
-    console.log("nope");
+
+  const onChangeCheckbox = (checkedValues) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      amenities: checkedValues,
+    }));
   };
-  const onChangeCheckbox = () => {
-    console.log("nope");
+
+  const onChangeCalendar = (startDate, endDate) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      location: {
+        ...formData.location,
+        availableFrom: startDate,
+        availableTo: endDate,
+      },
+    }));
   };
 
   return (
@@ -58,7 +84,11 @@ const EditListing = (props) => {
         <UpdateBathroomPrivate onRadioSelect={onRadioSelect} />
       </Panel>
       <Panel header='Location' key='2'>
-        <UpdateLocation defaultValue={formData.location} />
+        <UpdateLocation
+          defaultValue={formData.location}
+          onChangeInput={onChangeInput}
+          onChangeCalendar={onChangeCalendar}
+        />
       </Panel>
       <Panel header='Amenities' key='3'>
         <UpdateAmenities

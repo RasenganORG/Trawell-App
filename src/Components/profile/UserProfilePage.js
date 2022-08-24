@@ -3,10 +3,15 @@ import Spinner from "../Spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllBookings, reset } from "./bookingSlice";
-import { getRoomByUserId } from "../profile/listingSlice";
+import {
+  getListingByUserLogged,
+  updateListingByUserLogged,
+} from "../profile/listingSlice";
 import { useNavigate } from "react-router-dom";
 import CalendarListings from "./CalendarListings";
 import EditListing from "./EditListing";
+import { toast } from "react-toastify";
+
 const { TabPane } = Tabs;
 
 const onChange = (key) => {
@@ -16,15 +21,28 @@ const onChange = (key) => {
 const UserProfilePage = () => {
   const { Panel } = Collapse;
   const { bookings, isLoading } = useSelector((state) => state.bookings);
-  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { listings } = useSelector((state) => state.myListings);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const [formData, setFormData] = useState("");
+
+  const {
+    id,
+    roomType,
+    nrOfGuests,
+    nrOfBedrooms,
+    nrOfBeds,
+    nrOfBathrooms,
+    bathroomPrivate,
+    location,
+    amenities,
+  } = formData;
 
   const showModal = (listings) => {
     setFormData(listings);
@@ -32,12 +50,22 @@ const UserProfilePage = () => {
     setVisible(true);
   };
 
-  const handleOk = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 3000);
+  const handleOk = (e) => {
+    e.preventDefault();
+    const listingData = {
+      id,
+      roomType,
+      nrOfGuests,
+      nrOfBedrooms,
+      nrOfBeds,
+      nrOfBathrooms,
+      bathroomPrivate,
+      location,
+      amenities,
+    };
+    dispatch(updateListingByUserLogged(listingData));
+    toast.info("Your listing was edited successfuly");
+    navigate("/");
   };
 
   const handleCancel = () => {
@@ -46,7 +74,7 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     dispatch(getAllBookings());
-    dispatch(getRoomByUserId(user.id));
+    dispatch(getListingByUserLogged(user.id));
     dispatch(reset());
   }, [dispatch, user.id]);
 
@@ -98,15 +126,18 @@ const UserProfilePage = () => {
           <List
             itemLayout='horizontal'
             dataSource={listings}
-            renderItem={(item) => (
+            renderItem={(listing) => (
               <List.Item>
                 <List.Item.Meta
                   avatar={
-                    <Avatar size={"large"} src={`/${item.location.photos}`} />
+                    <Avatar
+                      size={"large"}
+                      src={`/${listing.location.photos}`}
+                    />
                   }
                   title={
-                    <a href={`/rooms/${item.id}`}>
-                      {item.location.country}, {item.location.city}
+                    <a href={`/rooms/${listing.id}`}>
+                      {listing.location.country}, {listing.location.city}
                     </a>
                   }
                   description={
@@ -114,11 +145,11 @@ const UserProfilePage = () => {
                       <p style={{ margin: 0 }}>
                         {" "}
                         Available
-                        {`${item.location.availableFrom} to  ${item.location.availableTo}`}{" "}
+                        {`${listing.location.availableFrom} to  ${listing.location.availableTo}`}{" "}
                       </p>
                       <h5 style={{ margin: 0 }}>
                         {" "}
-                        Price: {item.location.price}$
+                        Price: {listing.location.price}$
                       </h5>
                       <div
                         style={{
@@ -153,7 +184,7 @@ const UserProfilePage = () => {
                           />
                         </Modal>
                         <Button
-                          onClick={() => showModal(item)}
+                          onClick={() => showModal(listing)}
                           type='secondary'
                           size='small'
                           style={{ width: 100, marginLeft: 43 }}
