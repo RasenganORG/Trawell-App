@@ -50,7 +50,7 @@ export default function CalendarListings() {
   return (
     <div>
       <Calendar
-        style={{ width: "70%", marginTop: 100, marginLeft: "15%" }}
+        style={{ width: "100%" }}
         dateCellRender={dateCellRender}
         onPanelChange={onPanelChange}
       />

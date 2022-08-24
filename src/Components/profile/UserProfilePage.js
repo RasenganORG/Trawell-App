@@ -1,11 +1,12 @@
-import { Tabs, Button } from "antd";
-import { Avatar, List } from "antd";
+import { Tabs, Button, Avatar, List, Collapse, Modal } from "antd";
 import Spinner from "../Spinner";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllBookings, reset } from "./bookingSlice";
 import { getRoomByUserId } from "../profile/listingSlice";
 import { useNavigate } from "react-router-dom";
+import CalendarListings from "./CalendarListings";
+import EditListing from "./EditListing";
 const { TabPane } = Tabs;
 
 const onChange = (key) => {
@@ -13,11 +14,35 @@ const onChange = (key) => {
 };
 
 const UserProfilePage = () => {
+  const { Panel } = Collapse;
   const { bookings, isLoading } = useSelector((state) => state.bookings);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { listings } = useSelector((state) => state.myListings);
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const [formData, setFormData] = useState("");
+
+  const showModal = (listings) => {
+    setFormData(listings);
+    console.log("clicked listing is:", formData);
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(false);
+    }, 3000);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
     dispatch(getAllBookings());
@@ -64,14 +89,12 @@ const UserProfilePage = () => {
           />
         </TabPane>
         <TabPane tab='My Listings' key='2'>
-          <Button
-            onClick={() => navigate("/profile/my-calendar")}
-            type='primary'
-            size='small'
-            style={{ width: 120, marginLeft: 50 }}
-          >
-            View Calendar
-          </Button>
+          <Collapse defaultActiveKey={["0"]} onChange={onChange}>
+            <Panel header='View availability' key='1'>
+              <CalendarListings />
+            </Panel>
+          </Collapse>
+
           <List
             itemLayout='horizontal'
             dataSource={listings}
@@ -103,7 +126,34 @@ const UserProfilePage = () => {
                           marginLeft: "37%",
                         }}
                       >
+                        <Modal
+                          width={800}
+                          centered
+                          visible={visible}
+                          title='Edit listing'
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                          footer={[
+                            <Button key='back' onClick={handleCancel}>
+                              Return
+                            </Button>,
+                            <Button
+                              key='submit'
+                              type='primary'
+                              loading={loading}
+                              onClick={handleOk}
+                            >
+                              Submit
+                            </Button>,
+                          ]}
+                        >
+                          <EditListing
+                            formData={formData}
+                            setFormData={setFormData}
+                          />
+                        </Modal>
                         <Button
+                          onClick={() => showModal(item)}
                           type='secondary'
                           size='small'
                           style={{ width: 100, marginLeft: 43 }}
