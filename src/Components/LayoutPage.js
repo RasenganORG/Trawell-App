@@ -3,9 +3,16 @@ import { Button } from "antd";
 import Logo from "../images/logo.png";
 import SearchComp from "./rooms/SearchComp";
 import UserMenu from "../components/profile/UserMenu";
+import { useDispatch } from "react-redux";
+import { deActivateSearch } from "./rooms/roomSlice";
 
 const LayoutPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const toHome = () => {
+    dispatch(deActivateSearch());
+  };
 
   return (
     <div>
@@ -21,11 +28,23 @@ const LayoutPage = () => {
         }}
       >
         <Link to='/'>
-          <img src={Logo} alt='mypagelogo' style={{ width: "120px" }} />
+          <img
+            onClick={toHome}
+            src={Logo}
+            alt='mypagelogo'
+            style={{ width: "120px" }}
+          />
         </Link>
         <SearchComp />
-        <Button onClick={() => navigate("add-room")}>Become a host</Button>
-        <UserMenu />
+        <div style={{ display: "flex", marginLeft: 30 }}>
+          <Button
+            style={{ marginRight: 20 }}
+            onClick={() => navigate("add-room")}
+          >
+            Become a host
+          </Button>
+          <UserMenu />
+        </div>
       </div>
       <Outlet />
     </div>

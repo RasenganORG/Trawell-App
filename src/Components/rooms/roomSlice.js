@@ -8,6 +8,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  search: false,
 };
 
 export const addRoom = createAsyncThunk(
@@ -44,11 +45,12 @@ export const getAllRooms = createAsyncThunk(
   }
 );
 
-export const getRoomByCountry = createAsyncThunk(
-  "rooms/getRoomsByCountry",
-  async (country, thunkAPI) => {
+export const getFilteredRooms = createAsyncThunk(
+  "rooms/getAvailableRooms",
+  async (data, thunkAPI) => {
+    const { checkIn, checkOut, country } = data;
     try {
-      return await roomService.getRoomByCountry(country);
+      return await roomService.getAvailableRooms(checkIn, checkOut, country);
     } catch (error) {
       const message =
         (error.response &&
@@ -89,6 +91,12 @@ export const roomSlice = createSlice({
       state.message = "";
       state.room = "";
     },
+    activateSearch: (state) => {
+      state.search = true;
+    },
+    deActivateSearch: (state) => {
+      state.search = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -98,7 +106,7 @@ export const roomSlice = createSlice({
       .addCase(getAllRooms.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = [...action.payload];
+        state.rooms = action.payload;
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.isLoading = false;
@@ -120,20 +128,6 @@ export const roomSlice = createSlice({
         state.message = action.payload;
         state.rooms = null;
       })
-      .addCase(getRoomByCountry.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getRoomByCountry.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.rooms = [...action.payload];
-      })
-      .addCase(getRoomByCountry.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-        state.rooms = null;
-      })
       .addCase(getRoomById.pending, (state) => {
         state.isLoading = true;
       })
@@ -147,10 +141,24 @@ export const roomSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.room = null;
+      })
+      .addCase(getFilteredRooms.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getFilteredRooms.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.rooms = action.payload;
+      })
+      .addCase(getFilteredRooms.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.rooms = null;
       });
   },
 });
 
 export const roomActions = roomSlice.actions;
-export const { reset } = roomSlice.actions;
+export const { reset, activateSearch, deActivateSearch } = roomSlice.actions;
 export default roomSlice.reducer;

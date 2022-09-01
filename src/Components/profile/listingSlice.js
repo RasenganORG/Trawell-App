@@ -77,7 +77,7 @@ export const listingSlice = createSlice({
       .addCase(updateListingByUserLogged.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.listings = [...state.listings, action.payload];
+        state.listings = [...state.listings];
       })
       .addCase(updateListingByUserLogged.rejected, (state, action) => {
         state.isLoading = false;

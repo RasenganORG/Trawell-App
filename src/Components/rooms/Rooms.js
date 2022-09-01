@@ -1,19 +1,21 @@
-import { getAllRooms, reset } from "./roomSlice";
+import { getAllRooms, getFilteredRooms, reset } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
 import { Layout, Row } from "antd";
 import CardComp from "./CardComp";
+import { useSearchParams } from "react-router-dom";
 
 export default function Rooms() {
-  const { rooms, isLoading } = useSelector((state) => state.rooms);
-
+  const { rooms, isLoading, search } = useSelector((state) => state.rooms);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllRooms());
-    dispatch(reset());
-  }, [dispatch]);
+    if (!search) {
+      dispatch(getAllRooms());
+      dispatch(reset());
+    }
+  }, [dispatch, search]);
 
   if (isLoading) {
     return <Spinner />;

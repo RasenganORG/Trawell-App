@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL_POST = "http://localhost:8080/api/propertyToRent/";
 const API_URL_GET = "http://localhost:8080/api/propertiesToRent";
-const API_URL_COUNTRY = "http://localhost:8080/api/country";
+const API_URL_AVAILABLE = "http://localhost:8080/api/available";
 
 //POST room in database
 const addRoom = async (roomData) => {
@@ -22,17 +22,21 @@ const getRoom = async (roomId) => {
   return response.data;
 };
 
-//GET room by country
-const getRoomByCountry = async (country) => {
-  const response = await axios.get(`${API_URL_COUNTRY}/${country}`);
+//FILTER rooms by country, checkin, checkout
+const getAvailableRooms = async (checkIn, checkOut, country) => {
+  console.log("params in service", checkIn, checkOut, country);
+  const response = await axios.get(
+    `${API_URL_AVAILABLE}/?availableFrom=${checkIn}&availableTo=${checkOut}&country=${country}`
+  );
+  console.log("rooms filtered in service", response.data);
   return response.data;
 };
 
 const roomService = {
-  getRoom,
   getRooms,
+  getRoom,
   addRoom,
-  getRoomByCountry,
+  getAvailableRooms,
 };
 
 export default roomService;

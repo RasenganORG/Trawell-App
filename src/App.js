@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LayoutPage from "./components/LayoutPage";
 import RoomDetail from "./components/rooms/RoomDetail";
-import FilteredRooms from "./components/rooms/FilteredRooms";
 import AddRoomPage from "./components/add-room/AddRoomPage";
 import NotFound from "./components/NotFound";
 import UserProfilePage from "./components/profile/UserProfilePage";
@@ -26,7 +25,6 @@ function App() {
             <Route index element={<Navigate to='rooms' />} />
             <Route path='rooms' element={<Rooms />} />
             <Route path='rooms/:roomId' element={<RoomDetail />} />
-            <Route path='search/:country' element={<FilteredRooms />} />
             <Route
               path='profile'
               element={

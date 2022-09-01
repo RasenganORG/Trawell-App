@@ -1,4 +1,5 @@
 import { Tabs, Button, Avatar, List, Collapse, Modal } from "antd";
+import { FormOutlined } from "@ant-design/icons";
 import Spinner from "../Spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -50,6 +51,10 @@ const UserProfilePage = () => {
     setVisible(true);
   };
 
+  const handleCancel = () => {
+    setVisible(false);
+  };
+
   const handleOk = (e) => {
     e.preventDefault();
     const listingData = {
@@ -65,11 +70,8 @@ const UserProfilePage = () => {
     };
     dispatch(updateListingByUserLogged(listingData));
     toast.info("Your listing was edited successfuly");
-    navigate("/");
-  };
-
-  const handleCancel = () => {
     setVisible(false);
+    dispatch(getListingByUserLogged(user.id));
   };
 
   useEffect(() => {
@@ -117,7 +119,7 @@ const UserProfilePage = () => {
           />
         </TabPane>
         <TabPane tab='My Listings' key='2'>
-          <Collapse defaultActiveKey={["0"]} onChange={onChange}>
+          <Collapse defaultActiveKey={["0"]} onChange={onChange} ghost={true}>
             <Panel header='View availability' key='1'>
               <CalendarListings />
             </Panel>
@@ -127,7 +129,14 @@ const UserProfilePage = () => {
             itemLayout='horizontal'
             dataSource={listings}
             renderItem={(listing) => (
-              <List.Item>
+              <List.Item
+                actions={[
+                  <FormOutlined
+                    width='1em'
+                    onClick={() => showModal(listing)}
+                  />,
+                ]}
+              >
                 <List.Item.Meta
                   avatar={
                     <Avatar
@@ -147,6 +156,7 @@ const UserProfilePage = () => {
                         Available
                         {`${listing.location.availableFrom} to  ${listing.location.availableTo}`}{" "}
                       </p>
+
                       <h5 style={{ margin: 0 }}>
                         {" "}
                         Price: {listing.location.price}$
@@ -183,14 +193,6 @@ const UserProfilePage = () => {
                             setFormData={setFormData}
                           />
                         </Modal>
-                        <Button
-                          onClick={() => showModal(listing)}
-                          type='secondary'
-                          size='small'
-                          style={{ width: 100, marginLeft: 43 }}
-                        >
-                          Edit
-                        </Button>
                       </div>
                     </div>
                   }

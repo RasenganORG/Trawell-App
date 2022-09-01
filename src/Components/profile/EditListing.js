@@ -59,7 +59,7 @@ const EditListing = (props) => {
   };
 
   return (
-    <Collapse defaultActiveKey={["0"]} onChange={onChange}>
+    <Collapse ghost={true} defaultActiveKey={["0"]} onChange={onChange}>
       <Panel header='Your listing details' key='1'>
         <UpdateEntirePlace
           onChangeSelect={onChangeSelect}
