@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import CalendarListings from "./CalendarListings";
 import EditListing from "./EditListing";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const { TabPane } = Tabs;
 
@@ -25,8 +26,6 @@ const UserProfilePage = () => {
   const { user } = useSelector((state) => state.auth);
   const { listings } = useSelector((state) => state.myListings);
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -108,7 +107,9 @@ const UserProfilePage = () => {
                   description={
                     <div>
                       <p style={{ margin: 0 }}>
-                        {`${item.startDate} to  ${item.endDate}`}{" "}
+                        {`${moment(item.startDate).format(
+                          "MMMM Do YYYY"
+                        )} to  ${moment(item.endDate).format("MMMM Do YYYY")}`}
                       </p>
                       <h5 style={{ margin: 0 }}> Spent: {item.price}$</h5>
                     </div>

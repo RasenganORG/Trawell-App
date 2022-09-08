@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"); */
 
 /* * {
   margin: 0;
@@ -187,3 +187,28 @@
 .notes-month section {
   font-size: 28px;
 }
+
+/* .map-container {
+  height: 50vh;
+  width: 100%;
+} */
+
+/* .ol-map {
+  min-width: 600px;
+  min-height: 500px;
+  margin: 50px;
+  height: 500px;
+  width: "100%";
+}
+
+.ol-control {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.ol-full-screen {
+  top: 0.5em;
+  right: 0.5em;
+} */

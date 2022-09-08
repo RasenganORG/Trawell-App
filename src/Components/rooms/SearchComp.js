@@ -17,13 +17,12 @@ const SearchComp = () => {
 
   const { availableFrom, availableTo, country } = formSearch;
 
-  const onChangeCalendar = (checkIn, checkOut) => {
+  const onChangeCalendar = (date) => {
     setFormSearch((prevState) => ({
       ...prevState,
-      availableFrom: checkIn[0].format("YYYY-MM-DD"),
-      availableTo: checkIn[1].format("YYYY-MM-DD"),
+      availableFrom: date[0].format("YYYY-MM-DD"),
+      availableTo: date[1].format("YYYY-MM-DD"),
     }));
-    console.log("calendar changed");
   };
 
   const onChangeInput = (e) => {
@@ -31,7 +30,6 @@ const SearchComp = () => {
       ...prevState,
       country: e.target.value,
     }));
-    console.log("input changed");
   };
 
   const navigate = useNavigate();
@@ -56,6 +54,7 @@ const SearchComp = () => {
     <div>
       <Space direction='horizontal' size={0} style={{ marginLeft: 70 }}>
         <Input
+          onPressEnter={onSearch}
           placeholder='Where Trawell'
           onChange={onChangeInput}
           style={{ borderRadius: 0 }}

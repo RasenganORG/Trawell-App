@@ -15,7 +15,7 @@ const LayoutPage = () => {
   };
 
   return (
-    <div>
+    <div style={{ margin: 0 }}>
       <div
         style={{
           margin: 0,
@@ -46,7 +46,9 @@ const LayoutPage = () => {
           <UserMenu />
         </div>
       </div>
-      <Outlet />
+      <div style={{ width: "85%", marginLeft: "10%" }}>
+        <Outlet />
+      </div>
     </div>
   );
 };

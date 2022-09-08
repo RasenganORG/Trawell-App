@@ -3,6 +3,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Heart from "./Heart";
 import { useNavigate } from "react-router-dom";
 import { Card, Badge, Rate } from "antd";
+import moment from "moment";
 
 const { Meta } = Card;
 
@@ -13,8 +14,11 @@ export default function CardComp(props) {
   const navigate = useNavigate();
 
   return (
-    <div key={index} style={{ width: 300, margin: "auto", marginTop: 50 }}>
-      <Badge.Ribbon text='Top rated' color='pink'>
+    <div
+      key={index}
+      style={{ width: 330, marginTop: 40, marginLeft: 25, marginRight: 25 }}
+    >
+      <Badge.Ribbon style={{ margin: 0 }} text='Top rated' color='pink'>
         <Card
           hoverable
           style={{
@@ -27,6 +31,7 @@ export default function CardComp(props) {
                 borderTopRightRadius: 20,
                 objectFit: "cover",
                 height: 200,
+                margin: 0,
               }}
               alt='example'
               src={`/${location.photos}`}
@@ -45,7 +50,8 @@ export default function CardComp(props) {
             description={placeType}
           />
           <h5>
-            Available: {location.availableFrom} - {location.availableTo}
+            Available: {moment(location.availableFrom).format("MMM Do YY")} -{" "}
+            {moment(location.availableTo).format("MMM Do YY")}
           </h5>
           <h4>{location.price}$/night</h4>
           <Rate style={{ color: "#c7027c" }} />

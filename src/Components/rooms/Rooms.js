@@ -1,10 +1,9 @@
-import { getAllRooms, getFilteredRooms, reset } from "./roomSlice";
+import { getAllRooms, reset } from "./roomSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
-import { Layout, Row } from "antd";
+import { Layout, Row, Empty } from "antd";
 import CardComp from "./CardComp";
-import { useSearchParams } from "react-router-dom";
 
 export default function Rooms() {
   const { rooms, isLoading, search } = useSelector((state) => state.rooms);
@@ -27,12 +26,17 @@ export default function Rooms() {
         backgroundColor: "transparent",
       }}
     >
-      <Row gutter={[6, 6]}>
-        {rooms
-          ? rooms.map((room, id) => {
-              return <CardComp room={room} index={id} />;
-            })
-          : "No room added yet"}
+      <Row gutter={[0, 8]} style={{ margin: 0 }}>
+        {rooms ? (
+          rooms.map((room, id) => {
+            return <CardComp room={room} index={id} />;
+          })
+        ) : (
+          <Empty
+            style={{ margin: "auto", marginTop: "20%" }}
+            description='Nothing to see here!'
+          />
+        )}
       </Row>
     </Layout>
   );

@@ -164,7 +164,7 @@ const AddRoomPage = () => {
       id: 3,
       title: "Location",
       content: (
-        <div style={{ marginTop: 50, width: "60%" }}>
+        <div>
           <Location
             onChangeInput={onChangeInput}
             onChangeCalendar={onChangeCalendar}

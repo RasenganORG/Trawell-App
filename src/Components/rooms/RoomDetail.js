@@ -11,6 +11,7 @@ import CardSummary from "./room-details/CardSummary";
 import { useNavigate } from "react-router-dom";
 import { addBooking } from "../profile/bookingSlice";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const RoomDetail = () => {
   const { isLoading, isError, isSuccess, message, room } = useSelector(
@@ -54,11 +55,11 @@ const RoomDetail = () => {
     }));
   };
 
-  const onChangeCalendar = (startDate, endDate) => {
+  const onChangeCalendar = (checkin, checkout) => {
     setBookingData((prevState) => ({
       ...prevState,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: checkin,
+      endDate: checkout,
     }));
   };
 
