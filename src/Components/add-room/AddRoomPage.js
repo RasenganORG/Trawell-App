@@ -22,8 +22,6 @@ const AddRoomPage = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  console.log("user in add room is", user);
-
   const next = () => {
     setCurrent(current + 1);
   };
@@ -50,6 +48,10 @@ const AddRoomPage = () => {
       availableFrom: "",
       availableTo: "",
       description: "",
+      position: {
+        lat: null,
+        long: null,
+      },
     },
     amenities: [],
   });
@@ -168,6 +170,7 @@ const AddRoomPage = () => {
           <Location
             onChangeInput={onChangeInput}
             onChangeCalendar={onChangeCalendar}
+            formInfo={{ formData, setFormData }}
           />
         </div>
       ),

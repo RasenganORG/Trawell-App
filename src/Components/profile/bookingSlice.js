@@ -26,11 +26,11 @@ export const addBooking = createAsyncThunk(
   }
 );
 
-export const getAllBookings = createAsyncThunk(
-  "bookings/getBookings",
-  async (bookings, thunkAPI) => {
+export const getBookingsByUser = createAsyncThunk(
+  "bookings/getBookingsByUser",
+  async (userId, thunkAPI) => {
     try {
-      return await bookingService.getBookings(bookings);
+      return bookingService.getBookingsByUserId(userId);
     } catch (error) {
       const message =
         (error.response &&
@@ -57,15 +57,15 @@ export const bookingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllBookings.pending, (state) => {
+      .addCase(getBookingsByUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllBookings.fulfilled, (state, action) => {
+      .addCase(getBookingsByUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.bookings = [...action.payload];
+        state.bookings = action.payload;
       })
-      .addCase(getAllBookings.rejected, (state, action) => {
+      .addCase(getBookingsByUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

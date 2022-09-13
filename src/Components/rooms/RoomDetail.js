@@ -12,14 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { addBooking } from "../profile/bookingSlice";
 import { toast } from "react-toastify";
 import moment from "moment";
+import GmapDetails from "../g-maps/GmapDetails";
 
 const RoomDetail = () => {
-  const { isLoading, isError, isSuccess, message, room } = useSelector(
-    (state) => state.rooms
-  );
+  const { isLoading, room } = useSelector((state) => state.rooms);
 
   const { user } = useSelector((state) => state.auth);
   const { location } = room;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
@@ -90,8 +90,8 @@ const RoomDetail = () => {
     return <Spinner />;
   }
 
-  return (
-    <>
+  if (room)
+    return (
       <div
         style={{
           width: 700,
@@ -113,7 +113,7 @@ const RoomDetail = () => {
               width: 700,
             }}
             alt='example'
-            src={`/${location?.photos}`}
+            src={`/${location.photos}`}
           />
           <div
             style={{
@@ -129,10 +129,10 @@ const RoomDetail = () => {
             </h5>
             <h4>
               <FontAwesomeIcon icon={faLocation} />
-              {location?.country}, {location?.city}
+              {location.country}, {location.city}
             </h4>
           </div>
-          <p style={{ width: 700 }}>{location?.description}</p>
+          <p style={{ width: 700 }}>{location.description}</p>
           <div
             style={{
               display: "flex",
@@ -151,10 +151,12 @@ const RoomDetail = () => {
               onSubmit={onSubmit}
             />
           </div>
+          <br />
+          <GmapDetails props={room.location.coord} />
+          <br />
         </div>
       </div>
-    </>
-  );
+    );
 };
 
 export default RoomDetail;

@@ -14,10 +14,7 @@ export default function CardComp(props) {
   const navigate = useNavigate();
 
   return (
-    <div
-      key={index}
-      style={{ width: 330, marginTop: 40, marginLeft: 25, marginRight: 25 }}
-    >
+    <div key={index} style={{ width: 330, margin: 20 }}>
       <Badge.Ribbon style={{ margin: 0 }} text='Top rated' color='pink'>
         <Card
           hoverable

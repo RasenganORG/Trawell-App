@@ -1,4 +1,4 @@
-import { Form, Input, DatePicker } from "antd";
+import { Form, Input, DatePicker, AutoComplete } from "antd";
 import Gmap from "../g-maps/Gmap";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -6,7 +6,7 @@ const { TextArea } = Input;
 const Location = (props) => {
   return (
     <div style={{ marginTop: 50 }}>
-      <Gmap />
+      <Gmap formInfo={props.formInfo} />
       <Form
         style={{ width: "80%", marginLeft: "10%" }}
         labelCol={{
@@ -17,7 +17,6 @@ const Location = (props) => {
         }}
         layout='horizontal'
       >
-        {/* <MyMap /> */}
         <Form.Item label='Country' style={{ marginTop: 20 }}>
           <Input
             name='country'

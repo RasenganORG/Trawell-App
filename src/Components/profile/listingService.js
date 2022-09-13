@@ -11,7 +11,6 @@ const getListingByUserId = async (userId) => {
 // Update listing by roomId
 const editListing = async (listing) => {
   const response = await axios.put(`${API_URL_UPDATE}/${listing.id}`, listing);
-  console.log("raspuns din service", response);
   return response.data;
 };
 

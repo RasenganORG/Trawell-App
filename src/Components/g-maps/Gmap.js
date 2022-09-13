@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -16,7 +16,6 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { formatRelative } from "date-fns";
 
 import "@reach/combobox/styles.css";
 import mapStyles from "./mapStyles";
@@ -27,44 +26,52 @@ const mapContainerStyle = {
   height: "50vh",
 };
 
-const center = {
-  lat: 45,
-  lng: 25,
-};
-
 const options = {
   styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
 };
 
-const Gmap = () => {
+const Gmap = (props) => {
+  const { formData, setFormData } = props.formInfo;
+  const center = useMemo(() => ({ lat: 45, lng: 25 }), []);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCmfu6Aiv5Dlg63FNEXs5kI-AIMVJ6xg1Q",
     libraries,
   });
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
+  console.log(props.formInfo);
 
   const onMapClick = useCallback((event) => {
-    setMarkers((current) => [
-      ...current,
+    setMarkers(() => [
       {
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
-        time: new Date(),
       },
     ]);
+    const coord = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
+    console.log(coord);
+    setFormData({
+      ...formData,
+      location: {
+        ...formData.location,
+        coord,
+      },
+    });
   }, []);
 
-  const mapRef = React.useRef();
-  const onMapLoad = React.useCallback((map) => {
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
-  const panTo = React.useCallback(({ lat, lng }) => {
+  const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(11);
+    mapRef.current.setZoom(15);
   }, []);
 
   if (loadError) return "Error";
@@ -74,7 +81,7 @@ const Gmap = () => {
       <SearchPlace panTo={panTo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={6}
+        zoom={3}
         center={center}
         options={options}
         onClick={onMapClick}
@@ -85,27 +92,13 @@ const Gmap = () => {
             onClick={() => {
               setSelected(marker);
             }}
-            key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
-            draggable={true}
             opacity={1}
             icon={{
-              url: "./marker-trawell.png",
+              url: "../marker-trawell.png",
             }}
           />
         ))}
-        {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <h5>Your Location</h5>
-            </div>
-          </InfoWindow>
-        ) : null}
       </GoogleMap>
     </div>
   );
@@ -123,7 +116,7 @@ function SearchPlace({ panTo }) {
   } = usePlacesAutocomplete({
     requestOptions: {
       location: { lat: () => 45, lng: () => 25 },
-      radius: 200 * 1000,
+      radius: 100 * 1000,
     },
   });
   const handleInput = (e) => {
@@ -142,19 +135,21 @@ function SearchPlace({ panTo }) {
     }
   };
   return (
-    <Combobox onSelect={handleSelect}>
-      <ComboboxInput
-        value={value}
-        onChange={handleInput}
-        disabled={!ready}
-        placeholder='Enter address'
-      />
-      <ComboboxPopover>
-        {status === "OK" &&
-          data.map(({ id, description }) => (
-            <ComboboxOption key={id} value={description} />
-          ))}
-      </ComboboxPopover>
-    </Combobox>
+    <div className='search'>
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          placeholder='Street name'
+        />
+        <ComboboxPopover>
+          {status === "OK" &&
+            data.map(({ id, description }) => (
+              <ComboboxOption key={id} value={description} />
+            ))}
+        </ComboboxPopover>
+      </Combobox>
+    </div>
   );
 }

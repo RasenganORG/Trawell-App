@@ -33,10 +33,12 @@ const SearchComp = () => {
   };
 
   const navigate = useNavigate();
+  let showMap = false;
 
   const onSearch = (e) => {
     e.preventDefault();
-
+    showMap = true;
+    console.log(showMap);
     navigate(
       `rooms?availableFrom=${availableFrom}&availableTo=${availableTo}&country=${country}`
     );

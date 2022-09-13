@@ -100,116 +100,113 @@ function RegisterPage() {
   );
 
   return (
-    <div>
-      <Form
-        style={{ width: "60%", margin: "auto", marginTop: 200 }}
-        labelCol={{ span: 8 }}
-        // wrRegistererCol={{ span: 14 }}
-        layout='horizontal'
-        id='register-forms'
+    <Form
+      style={{ width: 1000, marginLeft: 350, marginTop: 200 }}
+      labelCol={{ span: 8 }}
+      layout='horizontal'
+      id='register-forms'
+    >
+      <Form.Item label='First Name'>
+        <Input
+          id='firstName'
+          name='firstName'
+          value={firstName}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </Form.Item>
+      <Form.Item label='Last Name'>
+        <Input
+          id='lastName'
+          name='lastName'
+          value={lastName}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </Form.Item>
+      <Form.Item label='Email'>
+        <Input
+          type='email'
+          id='email'
+          name='email'
+          value={email}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </Form.Item>
+      <Form.Item
+        name='phone'
+        label='Phone Number'
+        rules={[
+          {
+            required: true,
+            message: "Please input your phone number!",
+          },
+        ]}
       >
-        <Form.Item label='First Name'>
-          <Input
-            id='firstName'
-            name='firstName'
-            value={firstName}
-            onChange={onChange}
-            autoComplete='off'
-          />
-        </Form.Item>
-        <Form.Item label='Last Name'>
-          <Input
-            id='lastName'
-            name='lastName'
-            value={lastName}
-            onChange={onChange}
-            autoComplete='off'
-          />
-        </Form.Item>
-        <Form.Item label='Email'>
-          <Input
-            type='email'
-            id='email'
-            name='email'
-            value={email}
-            onChange={onChange}
-            autoComplete='off'
-          />
-        </Form.Item>
-        <Form.Item
-          name='phone'
-          label='Phone Number'
-          rules={[
-            {
-              required: true,
-              message: "Please input your phone number!",
-            },
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            style={{
-              width: "100%",
-            }}
-            className='form-control'
-            type='number'
-            id='phoneNumber'
-            name='phoneNumber'
-            value={phoneNumber}
-            onChange={onChange}
-          />
-        </Form.Item>
-        <Form.Item label='Birthdate'>
-          <DatePicker
-            id='birthdate'
-            name='birthdate'
-            value={birthdate}
-            onChange={onChangeDate}
-            autoComplete='off'
-          />
-        </Form.Item>
-        <Form.Item
-          label='Password'
+        <Input
+          addonBefore={prefixSelector}
+          style={{
+            width: "100%",
+          }}
+          className='form-control'
+          type='number'
+          id='phoneNumber'
+          name='phoneNumber'
+          value={phoneNumber}
+          onChange={onChange}
+        />
+      </Form.Item>
+      <Form.Item label='Birthdate'>
+        <DatePicker
+          id='birthdate'
+          name='birthdate'
+          value={birthdate}
+          onChange={onChangeDate}
+          autoComplete='off'
+        />
+      </Form.Item>
+      <Form.Item
+        label='Password'
+        name='password'
+        rules={[
+          {
+            required: true,
+            message: "Please input your password!",
+          },
+        ]}
+      >
+        <Input.Password
+          id='password'
           name='password'
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password
-            id='password'
-            name='password'
-            value={password}
-            onChange={onChange}
-            autoComplete='off'
-          />
-        </Form.Item>
+          value={password}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </Form.Item>
 
-        <Form.Item
-          label='Confirm password'
-          name='confirmPassword'
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
-        >
-          <Input.Password
-            id='password2'
-            name='password2'
-            value={password2}
-            onChange={onChange}
-            autoComplete='off'
-          />
-        </Form.Item>
-        <Button onClick={onSubmit} type='primary' id='submit'>
-          Register
-        </Button>
-      </Form>
-    </div>
+      <Form.Item
+        label='Confirm password'
+        name='confirmPassword'
+        rules={[
+          {
+            required: true,
+            message: "Please input your password!",
+          },
+        ]}
+      >
+        <Input.Password
+          id='password2'
+          name='password2'
+          value={password2}
+          onChange={onChange}
+          autoComplete='off'
+        />
+      </Form.Item>
+      <Button onClick={onSubmit} type='primary' id='submit'>
+        Register
+      </Button>
+    </Form>
   );
 }
 
