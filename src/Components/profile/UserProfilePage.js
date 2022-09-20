@@ -25,7 +25,9 @@ const UserProfilePage = () => {
     (state) => state.bookings
   );
   const { user } = useSelector((state) => state.auth);
-  const { listings } = useSelector((state) => state.myListings);
+  const { listings, listingIsSuccess, listingIsError } = useSelector(
+    (state) => state.myListings
+  );
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -78,11 +80,7 @@ const UserProfilePage = () => {
     dispatch(getBookingsByUser(user.id));
     dispatch(getListingByUserLogged(user.id));
     dispatch(reset());
-  }, [dispatch, user.id]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  }, [dispatch, user]);
 
   return (
     <div
@@ -93,8 +91,8 @@ const UserProfilePage = () => {
       }}
     >
       <Tabs style={{ width: 800 }} defaultActiveKey='1' onChange={onChange}>
-        {bookings && (
-          <TabPane tab='My Bookings' key='1'>
+        <TabPane tab='My Bookings' key='1'>
+          {bookings ? (
             <List
               itemLayout='horizontal'
               dataSource={bookings}
@@ -123,16 +121,18 @@ const UserProfilePage = () => {
                 </List.Item>
               )}
             />
-          </TabPane>
-        )}
-        {listings && (
+          ) : (
+            ""
+          )}
+        </TabPane>
+
+        {listings ? (
           <TabPane tab='My Listings' key='2'>
             <Collapse defaultActiveKey={["0"]} onChange={onChange} ghost={true}>
               <Panel header='View availability' key='1'>
                 <CalendarListings />
               </Panel>
             </Collapse>
-
             <List
               itemLayout='horizontal'
               dataSource={listings}
@@ -210,6 +210,8 @@ const UserProfilePage = () => {
               )}
             />
           </TabPane>
+        ) : (
+          ""
         )}
       </Tabs>
     </div>

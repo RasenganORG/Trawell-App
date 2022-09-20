@@ -1,12 +1,34 @@
-import { Form, Input, DatePicker, AutoComplete } from "antd";
+import { Form, Input, DatePicker, AutoComplete, Spin } from "antd";
 import Gmap from "../g-maps/Gmap";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Suspense } from "react";
+import Spinner from "../Spinner";
+import { setAutoComplete } from "../rooms/roomSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const Location = (props) => {
+  const { autoCompleteData, isLoading } = useSelector((state) => state.rooms);
+
+  const { formData, setFormData } = props.formInfo;
+
+  const { countryf, cityf, streetf } = autoCompleteData;
+  console.log("autocomplete data in location", autoCompleteData);
+  const dispatch = useDispatch();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+  // if (countryf && cityf && streetf)
   return (
     <div style={{ marginTop: 50 }}>
       <Gmap formInfo={props.formInfo} />
+      <p></p>
       <Form
         style={{ width: "80%", marginLeft: "10%" }}
         labelCol={{
@@ -20,16 +42,24 @@ const Location = (props) => {
         <Form.Item label='Country' style={{ marginTop: 20 }}>
           <Input
             name='country'
+            value={
+              formData.location.country ? formData.location.country : "bulangiu"
+            }
             onChange={(value) => props.onChangeInput(value)}
           />
         </Form.Item>
         <Form.Item label='City'>
-          <Input name='city' onChange={(value) => props.onChangeInput(value)} />
+          <Input
+            name='city'
+            defaultValue={cityf ? cityf : "nada"}
+            onChange={(value) => props.onChangeInput(value)}
+          />
         </Form.Item>
         <Form.Item label='Street adress'>
           <Input
             name='street'
             onChange={(value) => props.onChangeInput(value)}
+            defaultValue={streetf ? streetf : "nimic"}
           />
         </Form.Item>
         <Form.Item label='Price'>

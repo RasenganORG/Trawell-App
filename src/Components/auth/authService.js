@@ -16,14 +16,13 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.get(API_URL + userData.email, userData);
+  const response = await axios.get(
+    `${API_URL}${userData.email}/?pwd=${userData.password}`
+  );
 
-  if (response.data && response.data.password === userData.password) {
+  if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
-  } else {
-    toast.error("Passwords do not match");
   }
-
   return response.data;
 };
 

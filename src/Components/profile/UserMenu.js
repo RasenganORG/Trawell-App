@@ -71,6 +71,7 @@ const UserMenu = () => {
             size='2x'
             className='user-icon'
             icon={faUserCircle}
+            color='#c7027c'
           />
         </Dropdown>
       ) : (

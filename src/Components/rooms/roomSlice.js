@@ -4,6 +4,7 @@ import roomService from "./roomService";
 const initialState = {
   rooms: [],
   room: "",
+  autoCompleteData: "",
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -97,6 +98,10 @@ export const roomSlice = createSlice({
     deActivateSearch: (state) => {
       state.search = false;
     },
+    setAutoComplete: (state, action) => {
+      state.autoCompleteData = action.payload;
+      state.complete = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -160,5 +165,6 @@ export const roomSlice = createSlice({
 });
 
 export const roomActions = roomSlice.actions;
-export const { reset, activateSearch, deActivateSearch } = roomSlice.actions;
+export const { reset, activateSearch, deActivateSearch, setAutoComplete } =
+  roomSlice.actions;
 export default roomSlice.reducer;

@@ -14,7 +14,6 @@ import Location from "./Location";
 import Amenities from "./Amenities";
 import { addRoom } from "../rooms/roomSlice";
 import { toast } from "react-toastify";
-import UploadPhotos from "./UploadPhotos";
 import Logo from "../../images/logo.png";
 
 const AddRoomPage = () => {
@@ -48,7 +47,7 @@ const AddRoomPage = () => {
       availableFrom: "",
       availableTo: "",
       description: "",
-      position: {
+      coord: {
         lat: null,
         long: null,
       },
@@ -92,6 +91,9 @@ const AddRoomPage = () => {
   };
 
   const onChangeInput = (e) => {
+    console.log(e.target.name);
+    console.log(formData);
+
     setFormData((prevState) => ({
       ...prevState,
       location: {
@@ -179,11 +181,6 @@ const AddRoomPage = () => {
       id: 4,
       title: "Amenities",
       content: <Amenities onChangeCheckbox={onChangeCheckbox} />,
-    },
-    {
-      id: 5,
-      title: "Photos",
-      content: <UploadPhotos />,
     },
   ];
 

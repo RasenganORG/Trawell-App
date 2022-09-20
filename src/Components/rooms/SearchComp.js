@@ -57,7 +57,7 @@ const SearchComp = () => {
       <Space direction='horizontal' size={0} style={{ marginLeft: 70 }}>
         <Input
           onPressEnter={onSearch}
-          placeholder='Where Trawell'
+          placeholder='Trawell Country'
           onChange={onChangeInput}
           style={{ borderRadius: 0 }}
         />

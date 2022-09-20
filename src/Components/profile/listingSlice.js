@@ -3,8 +3,8 @@ import listingService from "./listingService";
 
 const initialState = {
   listings: [],
-  isError: false,
-  isSuccess: false,
+  listingIsError: false,
+  listingIsSuccess: false,
   isLoading: false,
   message: "",
 };
@@ -49,8 +49,8 @@ export const listingSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false;
-      state.isSuccess = false;
-      state.isError = false;
+      state.listingIsSuccess = false;
+      state.listingIsError = false;
       state.message = "";
       state.room = "";
     },
@@ -62,12 +62,12 @@ export const listingSlice = createSlice({
       })
       .addCase(getListingByUserLogged.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.listingIsSuccess = true;
         state.listings = [...action.payload];
       })
       .addCase(getListingByUserLogged.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
+        state.listingIsError = true;
         state.message = action.payload;
         state.listings = null;
       })
@@ -76,12 +76,12 @@ export const listingSlice = createSlice({
       })
       .addCase(updateListingByUserLogged.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.listingIsSuccess = true;
         state.listings = [...state.listings];
       })
       .addCase(updateListingByUserLogged.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
+        state.listingIsError = true;
         state.message = action.payload;
         state.listings = null;
       });

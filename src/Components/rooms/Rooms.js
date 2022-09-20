@@ -4,12 +4,11 @@ import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import Spinner from "../Spinner";
 import { Layout, Row, Empty, Col } from "antd";
 import CardComp from "./CardComp";
-import MapAllMarkers from "../g-maps/MapAllMarkers";
 import {
   GoogleMap,
   useLoadScript,
   Marker,
-  InfoWindow,
+  Rectangle,
 } from "@react-google-maps/api";
 import mapStyles from "../g-maps/mapStyles";
 import "@reach/combobox/styles.css";
@@ -18,8 +17,27 @@ export default function Rooms() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCmfu6Aiv5Dlg63FNEXs5kI-AIMVJ6xg1Q",
   });
+
+  const { rooms, isLoading, search } = useSelector((state) => state.rooms);
+  const dispatch = useDispatch();
+  const pos = rooms.map((el) => el.location.coord);
+  const [columns, setColumns] = useState({
+    roomsColumns: 22,
+    mapColumns: 0,
+  });
+
+  const [filteredRooms, setFilteredRooms] = useState([]);
+
+  useEffect(() => {
+    if (!search) {
+      dispatch(getAllRooms());
+    } else {
+      setColumns({ roomsColumns: 12, mapColumns: 12 });
+    }
+  }, [dispatch, search]);
+
   const mapContainerStyle = {
-    width: 700,
+    width: "100%",
     height: "100vh",
   };
   const options = {
@@ -34,21 +52,24 @@ export default function Rooms() {
     mapRef.current = map;
   }, []);
 
-  const { rooms, isLoading, search } = useSelector((state) => state.rooms);
-  const dispatch = useDispatch();
-  const pos = rooms.map((el) => el.location.coord);
-  const [columns, setColumns] = useState({
-    roomsColumns: 24,
-    mapColumns: 0,
-  });
+  const onBoundsChanged = () => {
+    console.log("bounds are", mapRef.current.getBounds());
+    const maxLat = mapRef.current.getBounds().Bb.hi;
+    const minLat = mapRef.current.getBounds().Bb.lo;
+    const maxLong = mapRef.current.getBounds().Va.hi;
+    const minLong = mapRef.current.getBounds().Va.lo;
+    setFilteredRooms(
+      rooms.filter(
+        (el) =>
+          el.location.coord.lat <= maxLat &&
+          el.location.coord.lat >= minLat &&
+          el.location.coord.long <= maxLong &&
+          el.location.coord.long >= minLong
+      )
+    );
+  };
 
-  useEffect(() => {
-    if (!search) {
-      dispatch(getAllRooms());
-    } else {
-      setColumns({ roomsColumns: 12, mapColumns: 12 });
-    }
-  }, [dispatch, search]);
+  console.log("filtered rooms are", filteredRooms);
 
   if (isLoading) {
     return <Spinner />;
@@ -56,48 +77,42 @@ export default function Rooms() {
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
-  if (rooms)
-    return (
-      <Layout
-        style={{
-          backgroundColor: "transparent",
-        }}
-      >
-        <Row>
-          <Col span={columns.roomsColumns}>
-            <Row gutter={[16, 24]}>
-              {rooms ? (
-                rooms.map((room, id) => {
-                  return <CardComp room={room} index={id} />;
+
+  return (
+    <>
+      <Row>
+        <Col className='gutter-row' span={columns.roomsColumns}>
+          <Row>
+            {filteredRooms.length > 0
+              ? filteredRooms.map((room, id) => {
+                  return <CardComp room={room} />;
                 })
-              ) : (
-                <Empty
-                  style={{ margin: "auto", marginTop: "20%" }}
-                  description='Nothing to see here!'
-                />
-              )}
-            </Row>
-          </Col>
-          <Col span={columns.mapColumns}>
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              zoom={4}
-              center={center}
-              options={options}
-              onLoad={onMapLoad}
-            >
-              {pos.map((marker) => (
-                <Marker
-                  position={{ lat: marker.lat, lng: marker.long }}
-                  opacity={1}
-                  icon={{
-                    url: "../marker-trawell.png",
-                  }}
-                />
-              ))}
-            </GoogleMap>
-          </Col>
-        </Row>
-      </Layout>
-    );
+              : rooms?.map((room, id) => {
+                  return <CardComp room={room} />;
+                })}
+          </Row>
+        </Col>
+        <Col span={columns.mapColumns}>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={4}
+            center={center}
+            options={options}
+            onLoad={onMapLoad}
+            onBoundsChanged={onBoundsChanged}
+          >
+            {pos.map((marker) => (
+              <Marker
+                position={{ lat: marker.lat, lng: marker.long }}
+                opacity={1}
+                icon={{
+                  url: "../marker-trawell.png",
+                }}
+              />
+            ))}
+          </GoogleMap>
+        </Col>
+      </Row>
+    </>
+  );
 }

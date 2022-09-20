@@ -1,9 +1,12 @@
 import { useCallback, useMemo, useRef, useState } from "react";
+import { setAutoComplete, reset } from "../rooms/roomSlice";
+import { useDispatch } from "react-redux";
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   InfoWindow,
+  Autocomplete,
 } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -32,8 +35,11 @@ const options = {
   zoomControl: true,
 };
 
+let formInfo = {};
+
 const Gmap = (props) => {
   const { formData, setFormData } = props.formInfo;
+  formInfo = props.formInfo;
   const center = useMemo(() => ({ lat: 45, lng: 25 }), []);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCmfu6Aiv5Dlg63FNEXs5kI-AIMVJ6xg1Q",
@@ -41,7 +47,6 @@ const Gmap = (props) => {
   });
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
-  console.log(props.formInfo);
 
   const onMapClick = useCallback((event) => {
     setMarkers(() => [
@@ -54,7 +59,7 @@ const Gmap = (props) => {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     };
-    console.log(coord);
+
     setFormData({
       ...formData,
       location: {
@@ -78,7 +83,7 @@ const Gmap = (props) => {
   if (!isLoaded) return "Loading...";
   return (
     <div>
-      <SearchPlace panTo={panTo} />
+      <SearchPlace panTo={panTo} formInfo={props.formInfo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={3}
@@ -107,6 +112,14 @@ const Gmap = (props) => {
 export default Gmap;
 
 function SearchPlace({ panTo }) {
+  const { formData, setFormData } = formInfo;
+  console.log(formData);
+  const dispatch = useDispatch();
+  // const [addressf, setAddressf] = useState({
+  //   streetf: "",
+  //   cityf: "",
+  //   countryf: "",
+  // });
   const {
     ready,
     value,
@@ -119,21 +132,41 @@ function SearchPlace({ panTo }) {
       radius: 100 * 1000,
     },
   });
+
   const handleInput = (e) => {
     setValue(e.target.value);
   };
+
   const handleSelect = async (address) => {
     setValue(address, false);
     clearSuggestions();
-
     try {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
+      let fields = address.split(", ");
+      dispatch(
+        setAutoComplete({
+          streetf: fields[0],
+          cityf: fields[1],
+          countryf: fields[2],
+        })
+      );
+      console.log(formData);
+      setFormData((prevState) => ({
+        ...prevState,
+        location: {
+          ...prevState.location,
+          country: fields[0],
+          city: fields[1],
+          street: fields[2],
+        },
+      }));
     } catch (error) {
-      console.log("😱 Error: ", error);
+      console.log("Error: ", error);
     }
   };
+
   return (
     <div className='search'>
       <Combobox onSelect={handleSelect}>
