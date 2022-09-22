@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { Button, Input, Space, DatePicker } from "antd";
 import { useNavigate } from "react-router-dom";
 import { activateSearch, getFilteredRooms } from "./roomSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const { RangePicker } = DatePicker;
 
 const SearchComp = () => {
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.auth);
   const [formSearch, setFormSearch] = useState({
     availableFrom: "",
     availableTo: "",
     country: "",
   });
-
   const { availableFrom, availableTo, country } = formSearch;
 
   const onChangeCalendar = (date) => {
@@ -40,7 +39,9 @@ const SearchComp = () => {
     showMap = true;
     console.log(showMap);
     navigate(
-      `rooms?availableFrom=${availableFrom}&availableTo=${availableTo}&country=${country}`
+      `rooms?availableFrom=${availableFrom}&availableTo=${availableTo}&country=${country}&userId=${
+        user ? user.id : ""
+      }`
     );
     dispatch(activateSearch());
     dispatch(
@@ -48,6 +49,7 @@ const SearchComp = () => {
         checkIn: availableFrom,
         checkOut: availableTo,
         country: country,
+        userId: user ? user.id : "",
       })
     );
   };

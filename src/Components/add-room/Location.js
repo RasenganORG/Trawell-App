@@ -1,13 +1,10 @@
 import { Form, Input, DatePicker, AutoComplete, Spin } from "antd";
 import Gmap from "../g-maps/Gmap";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { Suspense } from "react";
+
 import Spinner from "../Spinner";
-import { setAutoComplete } from "../rooms/roomSlice";
+
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -24,7 +21,6 @@ const Location = (props) => {
   if (isLoading) {
     return <Spinner />;
   }
-  // if (countryf && cityf && streetf)
   return (
     <div style={{ marginTop: 50 }}>
       <Gmap formInfo={props.formInfo} />
@@ -42,24 +38,28 @@ const Location = (props) => {
         <Form.Item label='Country' style={{ marginTop: 20 }}>
           <Input
             name='country'
-            value={
-              formData.location.country ? formData.location.country : "bulangiu"
-            }
+            value={formData.location.country ? formData.location.country : ""}
             onChange={(value) => props.onChangeInput(value)}
           />
         </Form.Item>
         <Form.Item label='City'>
           <Input
             name='city'
-            defaultValue={cityf ? cityf : "nada"}
+            value={formData.location.city ? formData.location.city : ""}
             onChange={(value) => props.onChangeInput(value)}
           />
         </Form.Item>
         <Form.Item label='Street adress'>
           <Input
             name='street'
+            value={formData.location.street ? formData.location.street : ""}
             onChange={(value) => props.onChangeInput(value)}
-            defaultValue={streetf ? streetf : "nimic"}
+          />
+        </Form.Item>
+        <Form.Item label='Listing name'>
+          <Input
+            name='listingName'
+            onChange={(value) => props.onChangeInput(value)}
           />
         </Form.Item>
         <Form.Item label='Price'>

@@ -8,33 +8,38 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  Rectangle,
+  InfoWindow,
 } from "@react-google-maps/api";
 import mapStyles from "../g-maps/mapStyles";
 import "@reach/combobox/styles.css";
+import { Link } from "react-router-dom";
 
 export default function Rooms() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCmfu6Aiv5Dlg63FNEXs5kI-AIMVJ6xg1Q",
   });
-
+  const { user } = useSelector((state) => state.auth);
   const { rooms, isLoading, search } = useSelector((state) => state.rooms);
   const dispatch = useDispatch();
-  const pos = rooms.map((el) => el.location.coord);
   const [columns, setColumns] = useState({
     roomsColumns: 22,
     mapColumns: 0,
   });
 
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     if (!search) {
-      dispatch(getAllRooms());
+      if (!user) {
+        dispatch(getAllRooms());
+      } else {
+        dispatch(getAllRooms(user.id));
+      }
     } else {
       setColumns({ roomsColumns: 12, mapColumns: 12 });
     }
-  }, [dispatch, search]);
+  }, [search]);
 
   const mapContainerStyle = {
     width: "100%",
@@ -54,8 +59,8 @@ export default function Rooms() {
 
   const onBoundsChanged = () => {
     console.log("bounds are", mapRef.current.getBounds());
-    const maxLat = mapRef.current.getBounds().Bb.hi;
-    const minLat = mapRef.current.getBounds().Bb.lo;
+    const maxLat = mapRef.current.getBounds().Ab.hi;
+    const minLat = mapRef.current.getBounds().Ab.lo;
     const maxLong = mapRef.current.getBounds().Va.hi;
     const minLong = mapRef.current.getBounds().Va.lo;
     setFilteredRooms(
@@ -77,7 +82,6 @@ export default function Rooms() {
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
-
   return (
     <>
       <Row>
@@ -101,14 +105,44 @@ export default function Rooms() {
             onLoad={onMapLoad}
             onBoundsChanged={onBoundsChanged}
           >
-            {pos.map((marker) => (
-              <Marker
-                position={{ lat: marker.lat, lng: marker.long }}
-                opacity={1}
-                icon={{
-                  url: "../marker-trawell.png",
-                }}
-              />
+            {filteredRooms.map((marker) => (
+              <>
+                <Marker
+                  onClick={() => {
+                    setSelected(marker.id);
+                  }}
+                  position={{
+                    lat: marker.location.coord.lat,
+                    lng: marker.location.coord.long,
+                  }}
+                  opacity={1}
+                  icon={{
+                    url: "../marker-trawell.png",
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(15, 15),
+                  }}
+                />
+                {selected === marker.id && (
+                  <InfoWindow
+                    position={{
+                      lat: marker.location.coord.lat,
+                      lng: marker.location.coord.long,
+                    }}
+                    onCloseClick={() => {
+                      setSelected(null);
+                    }}
+                  >
+                    <>
+                      <Link to={`/rooms/${marker.id}`}>
+                        <h5>
+                          {marker?.location.country},{marker?.location.city}
+                        </h5>
+                      </Link>
+                      <h5>$ {marker?.location.price}</h5>
+                    </>
+                  </InfoWindow>
+                )}
+              </>
             ))}
           </GoogleMap>
         </Col>

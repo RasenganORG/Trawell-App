@@ -115,11 +115,6 @@ function SearchPlace({ panTo }) {
   const { formData, setFormData } = formInfo;
   console.log(formData);
   const dispatch = useDispatch();
-  // const [addressf, setAddressf] = useState({
-  //   streetf: "",
-  //   cityf: "",
-  //   countryf: "",
-  // });
   const {
     ready,
     value,
@@ -157,9 +152,9 @@ function SearchPlace({ panTo }) {
         ...prevState,
         location: {
           ...prevState.location,
-          country: fields[0],
+          country: fields[2],
           city: fields[1],
-          street: fields[2],
+          street: fields[0],
         },
       }));
     } catch (error) {

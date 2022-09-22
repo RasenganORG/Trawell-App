@@ -1,6 +1,14 @@
-import { Tabs, Button, Avatar, List, Collapse, Modal, Empty } from "antd";
+import {
+  Tabs,
+  Button,
+  Avatar,
+  List,
+  Collapse,
+  Modal,
+  Empty,
+  Badge,
+} from "antd";
 import { FormOutlined } from "@ant-design/icons";
-import Spinner from "../Spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getBookingsByUser, reset } from "./bookingSlice";
@@ -21,9 +29,7 @@ const onChange = (key) => {
 
 const UserProfilePage = () => {
   const { Panel } = Collapse;
-  const { bookings, isLoading, isError, isSuccess } = useSelector(
-    (state) => state.bookings
-  );
+  const { bookings } = useSelector((state) => state.bookings);
   const { user } = useSelector((state) => state.auth);
   const { listings, listingIsSuccess, listingIsError } = useSelector(
     (state) => state.myListings
@@ -97,28 +103,33 @@ const UserProfilePage = () => {
               itemLayout='horizontal'
               dataSource={bookings}
               renderItem={(item, id) => (
-                <List.Item id={id}>
-                  <List.Item.Meta
-                    avatar={<Avatar size={"large"} src={`/${item.photo}`} />}
-                    title={
-                      <a href={`/rooms/${item.roomId}`}>
-                        {item.country}, {item.city}
-                      </a>
-                    }
-                    description={
-                      <div>
-                        <p style={{ margin: 0 }}>
-                          {`${moment(item.startDate).format(
-                            "MMMM Do YYYY"
-                          )} to  ${moment(item.endDate).format(
-                            "MMMM Do YYYY"
-                          )}`}
-                        </p>
-                        <h5 style={{ margin: 0 }}> Spent: {item.price}$</h5>
-                      </div>
-                    }
-                  />
-                </List.Item>
+                <Badge.Ribbon
+                  text={item.isFuture ? "Upcoming" : "Past"}
+                  color={item.isFuture ? "green" : "grey"}
+                >
+                  <List.Item id={id}>
+                    <List.Item.Meta
+                      avatar={<Avatar size={"large"} src={`/${item.photo}`} />}
+                      title={
+                        <a href={`/rooms/${item.roomId}`}>
+                          {item.country}, {item.city}
+                        </a>
+                      }
+                      description={
+                        <div>
+                          <p style={{ margin: 0 }}>
+                            {`${moment(item.startDate).format(
+                              "MMMM Do YYYY"
+                            )} to  ${moment(item.endDate).format(
+                              "MMMM Do YYYY"
+                            )}`}
+                          </p>
+                          <h5 style={{ margin: 0 }}> Spent: {item.price}$</h5>
+                        </div>
+                      }
+                    />
+                  </List.Item>
+                </Badge.Ribbon>
               )}
             />
           ) : (

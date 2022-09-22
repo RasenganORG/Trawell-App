@@ -40,6 +40,7 @@ const AddRoomPage = () => {
     nrOfBathrooms: "",
     bathroomPrivate: "",
     location: {
+      listingName: "",
       country: "",
       city: "",
       street: "",
