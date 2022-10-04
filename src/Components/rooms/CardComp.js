@@ -15,7 +15,7 @@ const { Meta } = Card;
 
 export default function CardComp(props) {
   const { room } = props;
-  const { location, placeType, id, numberLikes, isLiked } = room;
+  const { location, placeType, id, numberLikes, isLiked, images } = room;
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ export default function CardComp(props) {
               margin: 0,
             }}
             alt='example'
-            src={`/${location.photos}`}
+            src={`${images[0]}`}
             onClick={() => {
               navigate(`/rooms/${id}`);
             }}
@@ -70,7 +70,7 @@ export default function CardComp(props) {
           <FontAwesomeIcon size='sm' icon={faHeart} />
         </h4>
         <Meta
-          title={`${location.country}, ${location.city}`}
+          title={`${location?.country}, ${location?.city}`}
           description={placeType}
         />
         <h5>

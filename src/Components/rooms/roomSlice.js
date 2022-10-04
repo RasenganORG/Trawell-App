@@ -165,7 +165,6 @@ export const roomSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.rooms = action.payload;
-        console.log("action payload", action.payload);
       })
       .addCase(getAllRooms.rejected, (state, action) => {
         state.isLoading = false;

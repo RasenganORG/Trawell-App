@@ -59,8 +59,8 @@ export default function Rooms() {
 
   const onBoundsChanged = () => {
     console.log("bounds are", mapRef.current.getBounds());
-    const maxLat = mapRef.current.getBounds().Ab.hi;
-    const minLat = mapRef.current.getBounds().Ab.lo;
+    const maxLat = mapRef.current.getBounds().Cb.hi;
+    const minLat = mapRef.current.getBounds().Cb.lo;
     const maxLong = mapRef.current.getBounds().Va.hi;
     const minLong = mapRef.current.getBounds().Va.lo;
     setFilteredRooms(

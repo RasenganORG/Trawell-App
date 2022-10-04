@@ -78,12 +78,6 @@ const Location = (props) => {
             }}
           />
         </Form.Item>
-        <Form.Item label='Add photo'>
-          <Input
-            name='photos'
-            onChange={(value) => props.onChangeInput(value)}
-          />
-        </Form.Item>
         <Form.Item label='Description'>
           <TextArea
             name='description'

@@ -5,7 +5,7 @@ import { getRoomById, reset } from "./roomSlice";
 import Spinner from "../Spinner";
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faLocation } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faLocation, faHeart } from "@fortawesome/free-solid-svg-icons";
 import CardAmenities from "./room-details/CardAmenities";
 import CardSummary from "./room-details/CardSummary";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +13,14 @@ import { addBooking } from "../profile/bookingSlice";
 import { toast } from "react-toastify";
 import moment from "moment";
 import GmapDetails from "../g-maps/GmapDetails";
+import { Image } from "antd";
 
 const RoomDetail = () => {
   const { isLoading, room } = useSelector((state) => state.rooms);
 
   const { user } = useSelector((state) => state.auth);
-  const { location } = room;
+  const { location, likes, images } = room;
+  console.log({ images });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,17 +38,7 @@ const RoomDetail = () => {
     photo: "",
   });
 
-  const {
-    startDate,
-    endDate,
-    numberOfTrawellers,
-    price,
-    userId,
-    roomId,
-    country,
-    city,
-    photo,
-  } = bookingData;
+  const { startDate, endDate, numberOfTrawellers } = bookingData;
 
   const onChangeInput = (value) => {
     setBookingData((prevState) => ({
@@ -94,12 +86,12 @@ const RoomDetail = () => {
     return (
       <div
         style={{
-          width: 700,
+          width: 1900,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
           marginTop: 70,
-          margin: "auto",
+          marginLeft: 350,
         }}
       >
         <div
@@ -108,31 +100,36 @@ const RoomDetail = () => {
             width: "55%",
           }}
         >
-          <img
-            style={{
-              width: 700,
-            }}
-            alt='example'
-            src={`/${location.photos}`}
-          />
+          <Image.PreviewGroup>
+            {images?.map((item) => {
+              return <Image width={390} height={250} src={item} />;
+            })}
+          </Image.PreviewGroup>
+
           <div
             style={{
               display: "flex",
               flex: "row",
               justifyContent: "left",
               alignItems: "center",
+              paddingLeft: 130,
             }}
           >
             <h5 style={{ marginRight: 10 }}>
-              <FontAwesomeIcon style={{ marginRight: 1 }} icon={faStar} /> 4.75
-              Super host
+              <FontAwesomeIcon style={{ marginRight: 1 }} icon={faHeart} />
+              {"  "}
+              {likes}
+              {"  "}Super host
             </h5>
             <h4>
               <FontAwesomeIcon icon={faLocation} />
               {location.country}, {location.city}
             </h4>
+
+            <h3 style={{ width: 300 }}>{location.listingName}</h3>
           </div>
-          <p style={{ width: 700 }}>{location.description}</p>
+
+          <p style={{ width: 910, paddingLeft: 130 }}>{location.description}</p>
           <div
             style={{
               display: "flex",
@@ -152,7 +149,10 @@ const RoomDetail = () => {
             />
           </div>
           <br />
-          <GmapDetails props={room.location.coord} />
+          <div style={{ paddingLeft: 170 }}>
+            <GmapDetails props={room.location.coord} />
+          </div>
+
           <br />
         </div>
       </div>

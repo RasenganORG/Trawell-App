@@ -52,12 +52,12 @@ const Gmap = (props) => {
     setMarkers(() => [
       {
         lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        long: event.latLng.lng(),
       },
     ]);
     const coord = {
       lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
+      long: event.latLng.lng(),
     };
 
     setFormData({
@@ -97,7 +97,7 @@ const Gmap = (props) => {
             onClick={() => {
               setSelected(marker);
             }}
-            position={{ lat: marker.lat, lng: marker.lng }}
+            position={{ lat: marker.lat, lng: marker.long }}
             opacity={1}
             icon={{
               url: "../marker-trawell.png",
@@ -113,7 +113,6 @@ export default Gmap;
 
 function SearchPlace({ panTo }) {
   const { formData, setFormData } = formInfo;
-  console.log(formData);
   const dispatch = useDispatch();
   const {
     ready,
@@ -147,7 +146,6 @@ function SearchPlace({ panTo }) {
           countryf: fields[2],
         })
       );
-      console.log(formData);
       setFormData((prevState) => ({
         ...prevState,
         location: {

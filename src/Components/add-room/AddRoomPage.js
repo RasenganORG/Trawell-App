@@ -15,10 +15,13 @@ import Amenities from "./Amenities";
 import { addRoom } from "../rooms/roomSlice";
 import { toast } from "react-toastify";
 import Logo from "../../images/logo.png";
+import PhotoUpload from "./PhotoUpload";
 
 const AddRoomPage = () => {
   const [current, setCurrent] = useState(0);
-
+  const [fileList, setFileList] = useState([]);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("");
   const { user } = useSelector((state) => state.auth);
 
   const next = () => {
@@ -54,6 +57,7 @@ const AddRoomPage = () => {
       },
     },
     amenities: [],
+    images: [],
   });
 
   const {
@@ -68,6 +72,7 @@ const AddRoomPage = () => {
     bathroomPrivate,
     location,
     amenities,
+    images,
   } = formData;
 
   const onChangeCheckbox = (checkedValues) => {
@@ -92,9 +97,6 @@ const AddRoomPage = () => {
   };
 
   const onChangeInput = (e) => {
-    console.log(e.target.name);
-    console.log(formData);
-
     setFormData((prevState) => ({
       ...prevState,
       location: {
@@ -115,11 +117,54 @@ const AddRoomPage = () => {
     }));
   };
 
+  const onChangePhoto = ({ fileList, file }) => {
+    setFileList(fileList);
+    console.log("file is", file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file.originFileObj);
+    reader.onloadend = () => {
+      file.url = reader.result;
+      console.log({ file, fileList });
+      setFormData((prevState) => ({
+        ...prevState,
+        images: fileList,
+      }));
+    };
+
+    if (file.status !== "uploading") {
+      console.log(file, fileList);
+    }
+  };
+
+  const onPreviewPhoto = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log({ formData });
+
   const onSubmit = (e) => {
     e.preventDefault();
+    const fileListUrls = [];
+    if (fileList.length > 0) {
+      fileList.forEach((file) => {
+        fileListUrls.push(file.url);
+      });
+    }
+
     const roomData = {
       userId: user.id,
       placeType,
@@ -132,7 +177,9 @@ const AddRoomPage = () => {
       bathroomPrivate,
       location,
       amenities,
+      images: fileListUrls,
     };
+    console.log({ roomData });
     dispatch(addRoom(roomData));
     toast.info("Your listing was added successfuly");
     navigate("/");
@@ -182,6 +229,17 @@ const AddRoomPage = () => {
       id: 4,
       title: "Amenities",
       content: <Amenities onChangeCheckbox={onChangeCheckbox} />,
+    },
+    {
+      id: 5,
+      title: "Photos",
+      content: (
+        <PhotoUpload
+          onChangePhoto={onChangePhoto}
+          onPreviewPhoto={onPreviewPhoto}
+          fileList={fileList}
+        />
+      ),
     },
   ];
 
